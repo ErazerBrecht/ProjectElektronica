@@ -44,10 +44,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Program Files\Arduino\hardware\arduino\avr\cores\arduino;D:\Program Files\Arduino\hardware\arduino\avr\variants\standard;D:\Dropbox\AP Hogeschool\Semester 4\Project Elektronica\Arduino\Sensor;D:\Program Files\Arduino\libraries;D:\Program Files\Arduino\hardware\arduino\avr\libraries;D:\Programma%27s\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;D:\Dropbox\AP Hogeschool\Semester 4\Project Elektronica\Arduino\libraries;d:\program files\arduino\hardware\tools\avr\avr\include\;d:\program files\arduino\hardware\tools\avr\avr\include\avr\;d:\program files\arduino\hardware\tools\avr\avr\;d:\program files\arduino\hardware\tools\avr\lib\gcc\avr\4.8.1\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>D:\Dropbox\AP Hogeschool\Semester 4\Project Elektronica\Arduino\Sensor\Visual Micro\.Sensor.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard;C:\Users\Arne\Dropbox\School_2014-2015\Semester_2\Project Elektronica 4\Project Elektronica (1)\Arduino\Sensor;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;C:\Users\Arne\Documents\Arduino\libraries;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.8.1\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Users\Arne\Dropbox\School_2014-2015\Semester_2\Project Elektronica 4\Project Elektronica (1)\Arduino\Sensor\Visual Micro\.Sensor.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;ARDUINO=160;ARDUINO_MAIN;__AVR__;__avr__;F_CPU=16000000L;__cplusplus;GCC_VERSION=40801;ARDUINO_ARCH_AVR;ARDUINO_AVR_DUEMILANOVE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;ARDUINO=157;ARDUINO_MAIN;__AVR__;__avr__;F_CPU=16000000L;__cplusplus;GCC_VERSION=40801;ARDUINO_ARCH_AVR;ARDUINO_AVR_DUEMILANOVE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,12 +92,16 @@
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\wiring_private.h" />
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.h" />
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h" />
-    <ClInclude Include="..\Ultrasoon\SignalFilter.h" />
     <ClInclude Include="..\Ultrasoon\Ultrasoon.h" />
+    <ClInclude Include="SignalFilter.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Ultrasoon.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Visual Micro\.Sensor.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\abi.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\CDC.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\HardwareSerial.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\HardwareSerial0.cpp" />
@@ -121,8 +125,8 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\wiring_shift.c" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WMath.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.cpp" />
-    <ClCompile Include="..\Ultrasoon\SignalFilter.cpp" />
-    <ClCompile Include="..\Ultrasoon\Ultrasoon.cpp" />
+    <ClCompile Include="SignalFilter.cpp" />
+    <ClCompile Include="Ultrasoon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
