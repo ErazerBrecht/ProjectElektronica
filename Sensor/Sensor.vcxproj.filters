@@ -84,17 +84,17 @@
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h">
       <Filter>_core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Ultrasoon\SignalFilter.h">
+    <ClInclude Include="..\Ultrasoon\Ultrasoon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Ultrasoon\Ultrasoon.h">
+    <ClInclude Include="SignalFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ultrasoon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\abi.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\CDC.cpp">
       <Filter>_core</Filter>
     </ClCompile>
@@ -164,10 +164,10 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.cpp">
       <Filter>_core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Ultrasoon\SignalFilter.cpp">
+    <ClCompile Include="SignalFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Ultrasoon\Ultrasoon.cpp">
+    <ClCompile Include="Ultrasoon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
