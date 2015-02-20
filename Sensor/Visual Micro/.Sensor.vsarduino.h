@@ -80,4 +80,8 @@ extern "C" void __cxa_pure_virtual() {;}
 #define portInputRegister(P)
 #define portModeRegister(P)
 #include <Sensor.ino>
+#include <SignalFilter.cpp>
+#include <SignalFilter.h>
+#include <Ultrasoon.cpp>
+#include <Ultrasoon.h>
 #endif
