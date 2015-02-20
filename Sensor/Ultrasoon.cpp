@@ -52,13 +52,14 @@ long Ultrasoon::getCentimeter()
 		_filteredDistance = 401;
 	}
 
-	delay(50);
+	delay(25);
 
 	//Return the distance value
 	return _filteredDistance;
 
 }
 
+//First measure distance with private function (getCentimeter)
 //Function to check if the sensor is closer then x cm
 //If this is the case return true otherwise return false!
 bool Ultrasoon::isCloser(int x)
