@@ -10,6 +10,10 @@ void setup() {
 }
 
 void loop() {
-	Serial.println(u.isCloser(10));
-	Wagen.Forward(150);
+	//Serial.println(u.isCloser(10));
+
+	if (u.isCloser(10))
+		Wagen.Reverse(150);
+	else
+		Wagen.Forward(150);
 }
