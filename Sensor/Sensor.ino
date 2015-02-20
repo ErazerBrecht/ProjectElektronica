@@ -1,6 +1,8 @@
 #include "Ultrasoon.h"
+#include "Robot.h"
 
-Ultrasoon u(12, 13);
+Ultrasoon u(9, 10);
+Robot Wagen(5, 6, 4, 8, 11, 12);
 
 void setup() {
 	Serial.begin(9600);
@@ -9,4 +11,5 @@ void setup() {
 
 void loop() {
 	Serial.println(u.isCloser(10));
+	Wagen.Forward(150);
 }
