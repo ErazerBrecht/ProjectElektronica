@@ -1,6 +1,6 @@
 #include "Ultrasoon.h"
 
-Ultrasoon u(13, 12);
+Ultrasoon u(12, 13);
 
 void setup() {
 	Serial.begin(9600);
@@ -8,6 +8,5 @@ void setup() {
 }
 
 void loop() {
-	u.printSerialDistance();
-	delay(100);
+	Serial.println(u.isCloser(10));
 }

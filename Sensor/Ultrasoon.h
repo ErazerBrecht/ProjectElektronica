@@ -1,7 +1,7 @@
 /*
-  Library for Lab Microcontrollers
-  Sharp.h - Library for GP2Y0A41SK0F
-  Created by Brecht Carlier
+  Library for Project Elektronica
+  Ultrasoon.h - Library for HC-SR04
+  Created by Brecht Carlier & Arne Schoonvliet
 */
 
 #ifndef Ultrasoon_h
@@ -13,9 +13,7 @@
 class Ultrasoon
 {
   public:
-    Ultrasoon(int trigPin, int echoPin);
-	void printSerialDistance();
-    float getCentimeter();
+    Ultrasoon(int trigPin, int echoPin); 
 	bool isCloser(int x);
 
   private:
@@ -23,8 +21,9 @@ class Ultrasoon
 	int _echoPin;
     SignalFilter Filter;
 	long _duration;
-	long _filtered;
-	long _distance;
+	long _filteredDistance;
+
+	long getCentimeter();
 };
 
 #endif
