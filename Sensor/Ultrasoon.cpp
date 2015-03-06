@@ -40,6 +40,8 @@ long Ultrasoon::getCentimeter()
 	//Calculate the distance (in cm) and filter against fault readings!
 	_filteredDistance = Filter.run(_duration / 58.2);
 
+	//_filteredDistance = _duration / 58.2;
+
 	//Check if sensor value is out of range!
 	if (_filteredDistance < 2)
 	{

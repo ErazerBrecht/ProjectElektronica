@@ -14,10 +14,10 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="_core">
-      <UniqueIdentifier>{3a0f2636-8eb7-4d40-9775-d9bec1b07e14}</UniqueIdentifier>
+      <UniqueIdentifier>{1c7aceca-31c4-453a-9619-0160008d6ad1}</UniqueIdentifier>
     </Filter>
     <Filter Include="_libraries">
-      <UniqueIdentifier>{4ce1946f-4b78-4910-999c-c17aec2f9ce8}</UniqueIdentifier>
+      <UniqueIdentifier>{77304906-f005-4878-9e60-78ec2f2df771}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +25,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Visual Micro\.Sensor.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ultrasoon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\Arduino.h">
@@ -81,20 +90,23 @@
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.h">
       <Filter>_core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h">
+    <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\variants\mega\pins_arduino.h">
       <Filter>_core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Ultrasoon\Ultrasoon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SignalFilter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ultrasoon.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SignalFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ultrasoon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\abi.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\CDC.cpp">
       <Filter>_core</Filter>
     </ClCompile>
@@ -163,12 +175,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.cpp">
       <Filter>_core</Filter>
-    </ClCompile>
-    <ClCompile Include="SignalFilter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ultrasoon.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
