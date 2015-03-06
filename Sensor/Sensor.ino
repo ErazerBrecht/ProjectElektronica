@@ -4,10 +4,12 @@
 Ultrasoon uForward(9, 10);
 Ultrasoon uReverse(22, 24);
 Ultrasoon uRight(26, 28);
+Ultrasoon uLeft(30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
 
 enum Tristate {
+	Reset,
 	Forward,
 	Reverse,
 	Left,
@@ -16,6 +18,8 @@ enum Tristate {
 };
 
 Tristate b = Forward;
+bool b2;
+bool b3;
 
 void setup() {
 	Serial.begin(9600);
@@ -29,13 +33,21 @@ void loop() {
 	Serial.println(uReverse.getCentimeter());
 	*/
 
-	if (uForward.isCloser(10) && uReverse.isCloser(10))
+	b2 = false;
+	b3 = false;
+	b = Reset;
+
+	if (uForward.isCloser(15) && uReverse.isCloser(15))
 		b = Stop;
 	else{
-		if (uForward.isCloser(10))
+		if (uForward.isCloser(15))
 			b = Forward;
-		if (uReverse.isCloser(10))
+		if (uReverse.isCloser(15))
 			b = Reverse;
+		if (uRight.isCloser(15))
+			b2 = true;
+		if (uLeft.isCloser(15))
+			b3 = true;
 	}
 
 	
@@ -45,10 +57,23 @@ void loop() {
 	}
 	else  if (b == Forward)
 	{
-
-		Wagen.Reverse(150);
+		if (b3 == false)
+		{
+			Wagen.Left(150, -150);
+			delay(110);
+		}
+		else if (b2 == false)
+		{
+			Wagen.Right(-150, 150);
+			delay(110);
+		}
+		else{
+			Wagen.Reverse(150);
+		}
 	}
 	else
+	{
 		Wagen.Forward(150);
+	}
 
 }
