@@ -181,3 +181,8 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Visual Micro
+*vsarduino*
+*.vmps.xml
+
