@@ -8,6 +8,12 @@ Created by Brecht Carlier & Arne Schoonvliet
 #include "Ultrasoon.h"
 
 //Constructor
+//We have two constructors
+//One accepts 2 pins (one sensor)
+//Another accepts 4 pins (two sensor)
+//The Library is made with native support to fuse two sensors. As example: you could use two forward sensors for big robots. Arduino will see it as one!
+//Conclusion: The Arduino program will not change!!!
+//TODO: Filter init in seperate method
 Ultrasoon::Ultrasoon(int trigPin, int echoPin)
 {
 	_fusion = false;
@@ -29,7 +35,7 @@ Ultrasoon::Ultrasoon(int trigPin, int echoPin, int trigPin2, int echoPin2)
 
 	_trigPin = trigPin;		//Save the constuctor parameter (pin) to a private field (is used later for measuring)
 	_echoPin = echoPin;
-	_trigPin2 = trigPin2;		//Save the constuctor parameter (pin) to a private field (is used later for measuring)
+	_trigPin2 = trigPin2;		
 	_echoPin2 = echoPin2;
 
 	Filter.begin();			//Start the filter library
@@ -41,7 +47,10 @@ Ultrasoon::Ultrasoon(int trigPin, int echoPin, int trigPin2, int echoPin2)
 	pinMode(_trigPin2, OUTPUT);
 	pinMode(_echoPin2, INPUT);
 }
+
 //Private!
+//The main function of this library
+//This function will do the actual measuring!
 long Ultrasoon::calculateCentimeter(int trigPin, int echoPin)
 {
 	// The sensor is triggered by a HIGH pulse of 10 or more microseconds.
@@ -58,12 +67,10 @@ long Ultrasoon::calculateCentimeter(int trigPin, int echoPin)
 	//Calculate the distance (in cm) and filter against fault readings!
 	_filteredDistance = Filter.run(_duration / 58.2);
 
-	//_filteredDistance = _duration / 58.2;
-
 	//Check if sensor value is out of range!
-	if (_filteredDistance < 2)
+	if (_filteredDistance < 3)
 	{
-		_filteredDistance = 1;
+		_filteredDistance = 2;
 	}
 
 	//Check if sensor value is out of range!
@@ -76,10 +83,9 @@ long Ultrasoon::calculateCentimeter(int trigPin, int echoPin)
 
 }
 
-
-//Private!
-//The main function of this library
-//This function will do the measuring!
+//Two private functions that add the stability delay
+//With the fusion method we will return the smallest value.
+//This value is closer to wall and is thus more important! 
 void Ultrasoon::getCentimeter()
 {
 	_centimeter = calculateCentimeter(_trigPin, _echoPin);
@@ -96,8 +102,6 @@ void Ultrasoon::getCentimeterFusion()
 	if (_centimeter2 < _centimeter)
 		_centimeter = _centimeter2;
 }
-
-
 
 //First measure distance with private function (getCentimeter)
 //Function to check if the sensor is closer then x cm
