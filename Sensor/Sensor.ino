@@ -12,12 +12,6 @@ void setup() {
 }
 
 void loop() {
-	/*
-	Serial.print("Forward");
-	Serial.println(uForward.getCentimeter());
-	Serial.print("Reverse");
-	Serial.println(uReverse.getCentimeter());
-	*/
 
 	if (!uForward.isCloser(10))
 	{

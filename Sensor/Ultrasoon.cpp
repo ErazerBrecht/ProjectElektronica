@@ -80,16 +80,13 @@ long Ultrasoon::calculateCentimeter(int trigPin, int echoPin)
 //Private!
 //The main function of this library
 //This function will do the measuring!
-long Ultrasoon::getCentimeter()
+void Ultrasoon::getCentimeter()
 {
 	_centimeter = calculateCentimeter(_trigPin, _echoPin);
 	delay(25);
-
-	//Return the distance value
-	return _centimeter;
 }
 
-long Ultrasoon::getCentimeterFusion()
+void Ultrasoon::getCentimeterFusion()
 {
 	_centimeter = calculateCentimeter(_trigPin, _echoPin);
 	delay(25);
@@ -97,7 +94,7 @@ long Ultrasoon::getCentimeterFusion()
 	delay(25);
 
 	if (_centimeter2 < _centimeter)
-		_centimeter = _centimeter2
+		_centimeter = _centimeter2;
 }
 
 
