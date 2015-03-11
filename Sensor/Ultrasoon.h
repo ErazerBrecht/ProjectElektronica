@@ -14,15 +14,24 @@ class Ultrasoon
 {
   public:
     Ultrasoon(int trigPin, int echoPin); 
+	Ultrasoon(int trigPin, int echoPin, int trigPin2, int echoPin2);
 	bool isCloser(int x);
 	long getCentimeter();
+	long getCentimeterFusion();
 
   private:
     int _trigPin;
 	int _echoPin;
+	int _trigPin2;
+	int _echoPin2;
+	bool _fusion;
     SignalFilter Filter;
 	long _duration;
 	long _filteredDistance;
+	long _centimeter;		//TODO: Needs to become an array!
+	long _centimeter2;
+
+	long calculateCentimeter(int trigPin, int echoPin);
 
 	
 };
