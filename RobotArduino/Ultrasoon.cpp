@@ -8,11 +8,12 @@ Created by Brecht Carlier & Arne Schoonvliet
 #include "Ultrasoon.h"
 
 //Constructor
-Ultrasoon::Ultrasoon(int trigPin, int echoPin)
+void Ultrasoon::begin(int trigPin, int echoPin)
 {
 	_trigPin = trigPin;		//Save the constuctor parameter (pin) to a private field (is used later for measuring)
 	_echoPin = echoPin;
 
+	//TODO: Make Filter init function!
 	Filter.begin();			//Start the filter library
 	Filter.setFilter('m');  //Set it's mode on "median" 
 	Filter.setOrder(3);		//Set the number of sample the filter uses to calculate the median!
@@ -24,7 +25,7 @@ Ultrasoon::Ultrasoon(int trigPin, int echoPin)
 //Private!
 //The main function of this library
 //This function will do the measuring!
-long Ultrasoon::getCentimeter()
+void Ultrasoon::getCentimeter()
 {
 	// The sensor is triggered by a HIGH pulse of 10 or more microseconds.
 	// Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
@@ -40,8 +41,6 @@ long Ultrasoon::getCentimeter()
 	//Calculate the distance (in cm) and filter against fault readings!
 	_filteredDistance = Filter.run(_duration / 58.2);
 
-	//_filteredDistance = _duration / 58.2;
-
 	//Check if sensor value is out of range!
 	if (_filteredDistance < 2)
 	{
@@ -55,10 +54,6 @@ long Ultrasoon::getCentimeter()
 	}
 
 	delay(25);
-
-	//Return the distance value
-	return _filteredDistance;
-
 }
 
 //First measure distance with private function (getCentimeter)
