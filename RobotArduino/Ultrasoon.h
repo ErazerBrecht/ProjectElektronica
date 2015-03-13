@@ -13,8 +13,12 @@
 class Ultrasoon
 {
   public:
+<<<<<<< HEAD:Sensor/Ultrasoon.h
     Ultrasoon(int trigPin, int echoPin); 
 	Ultrasoon(int trigPin, int echoPin, int trigPin2, int echoPin2);
+=======
+    void begin(int trigPin, int echoPin); 
+>>>>>>> NewOO:RobotArduino/Ultrasoon.h
 	bool isCloser(int x);
 
   private:
@@ -29,12 +33,16 @@ class Ultrasoon
 	
 	long _duration;
 	long _filteredDistance;
+<<<<<<< HEAD:Sensor/Ultrasoon.h
 	long _centimeter;		//TODO: Needs to become an array!
 	long _centimeter2;
 
 	void getCentimeter();
 	void getCentimeterFusion();
 	long calculateCentimeter(int trigPin, int echoPin);
+=======
+	void getCentimeter();
+>>>>>>> NewOO:RobotArduino/Ultrasoon.h
 };
 
 #endif

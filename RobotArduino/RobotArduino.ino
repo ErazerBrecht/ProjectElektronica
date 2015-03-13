@@ -1,10 +1,10 @@
-#include "Ultrasoon.h"
+#include "Sensor.h"
 #include "Robot.h"
 
-Ultrasoon uForward(9, 10);
-Ultrasoon uReverse(22, 24);
-Ultrasoon uRight(26, 28);
-Ultrasoon uLeft(30, 32);
+Sensor uForward(9, 10);
+Sensor uReverse(22, 24);
+Sensor uRight(26, 28);
+Sensor uLeft(30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
 void setup() {

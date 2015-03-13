@@ -21,12 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sensor.ino" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Visual Micro\.Sensor.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SignalFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -92,6 +86,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\variants\mega\pins_arduino.h">
       <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.RobotArduino.vsarduino.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,5 +176,11 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.cpp">
       <Filter>_core</Filter>
     </ClCompile>
+    <ClCompile Include="Sensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RobotArduino.ino" />
   </ItemGroup>
 </Project>

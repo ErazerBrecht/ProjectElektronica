@@ -8,6 +8,7 @@ Created by Brecht Carlier & Arne Schoonvliet
 #include "Ultrasoon.h"
 
 //Constructor
+<<<<<<< HEAD:Sensor/Ultrasoon.cpp
 //We have two constructors
 //One accepts 2 pins (one sensor)
 //Another accepts 4 pins (two sensor)
@@ -15,6 +16,9 @@ Created by Brecht Carlier & Arne Schoonvliet
 //Conclusion: The Arduino program will not change!!!
 //TODO: Filter init in seperate method
 Ultrasoon::Ultrasoon(int trigPin, int echoPin)
+=======
+void Ultrasoon::begin(int trigPin, int echoPin)
+>>>>>>> NewOO:RobotArduino/Ultrasoon.cpp
 {
 	_fusion = false;
 
@@ -38,6 +42,7 @@ Ultrasoon::Ultrasoon(int trigPin, int echoPin, int trigPin2, int echoPin2)
 	_trigPin2 = trigPin2;		
 	_echoPin2 = echoPin2;
 
+	//TODO: Make Filter init function!
 	Filter.begin();			//Start the filter library
 	Filter.setFilter('m');  //Set it's mode on "median" 
 	Filter.setOrder(3);		//Set the number of sample the filter uses to calculate the median!
@@ -50,8 +55,13 @@ Ultrasoon::Ultrasoon(int trigPin, int echoPin, int trigPin2, int echoPin2)
 
 //Private!
 //The main function of this library
+<<<<<<< HEAD:Sensor/Ultrasoon.cpp
 //This function will do the actual measuring!
 long Ultrasoon::calculateCentimeter(int trigPin, int echoPin)
+=======
+//This function will do the measuring!
+void Ultrasoon::getCentimeter()
+>>>>>>> NewOO:RobotArduino/Ultrasoon.cpp
 {
 	// The sensor is triggered by a HIGH pulse of 10 or more microseconds.
 	// Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
@@ -90,6 +100,7 @@ void Ultrasoon::getCentimeter()
 {
 	_centimeter = calculateCentimeter(_trigPin, _echoPin);
 	delay(25);
+<<<<<<< HEAD:Sensor/Ultrasoon.cpp
 }
 
 void Ultrasoon::getCentimeterFusion()
@@ -101,6 +112,8 @@ void Ultrasoon::getCentimeterFusion()
 
 	if (_centimeter2 < _centimeter)
 		_centimeter = _centimeter2;
+=======
+>>>>>>> NewOO:RobotArduino/Ultrasoon.cpp
 }
 
 //First measure distance with private function (getCentimeter)
