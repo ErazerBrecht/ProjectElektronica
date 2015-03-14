@@ -28,15 +28,11 @@ uint8_t fifoBuffer[64]; // FIFO storage buffer
 
 // orientation/motion vars
 Quaternion q;           // [w, x, y, z]         quaternion container
-//VectorInt16 aa;         // [x, y, z]            accel sensor measurements
-//VectorInt16 aaReal;     // [x, y, z]            gravity-free accel sensor measurements
-//VectorInt16 aaWorld;    // [x, y, z]            world-frame accel sensor measurements
 VectorFloat gravity;    // [x, y, z]            gravity vector
 float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
 
 float Angle;
 float oldAngle;
-float newAngle;
 bool turnLeft;
 bool turnRight;
 
@@ -181,7 +177,6 @@ void loop() {
 			turnRight = true;
 			}
 
-			/*
 			else if (!uReverse.isCloser(20))
 			{
 			Wagen.Reverse(150);
@@ -189,7 +184,7 @@ void loop() {
 			else
 			{
 				Wagen.Stop();
-			}*/
+			}
 		}
 
 		else if (turnLeft)

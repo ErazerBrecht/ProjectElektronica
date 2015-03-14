@@ -45,7 +45,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Program Files\Arduino\hardware\arduino\avr\cores\arduino;D:\Program Files\Arduino\hardware\arduino\avr\variants\mega;D:\Dropbox\AP Hogeschool\Semester 4\Robot\RobotArduino;D:\Program Files\Arduino\libraries;D:\Program Files\Arduino\hardware\arduino\avr\libraries;D:\Programma%27s\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;D:\Dropbox\AP Hogeschool\Semester 4\Project Elektronica\Arduino\libraries;d:\program files\arduino\hardware\tools\avr\avr\include\;d:\program files\arduino\hardware\tools\avr\avr\include\avr\;d:\program files\arduino\hardware\tools\avr\avr\;d:\program files\arduino\hardware\tools\avr\lib\gcc\avr\4.8.1\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Program Files\Arduino\hardware\arduino\avr\cores\arduino;D:\Program Files\Arduino\hardware\arduino\avr\variants\mega;D:\Dropbox\AP Hogeschool\Semester 4\Robot\RobotArduino;D:\Program Files\Arduino\hardware\arduino\avr\libraries\Wire;D:\Program Files\Arduino\hardware\arduino\avr\libraries\Wire\utility;D:\Program Files\Arduino\libraries;D:\Program Files\Arduino\hardware\arduino\avr\libraries;D:\Programma%27s\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;D:\Dropbox\AP Hogeschool\Semester 4\Project Elektronica\Arduino\libraries;d:\program files\arduino\hardware\tools\avr\avr\include\;d:\program files\arduino\hardware\tools\avr\avr\include\avr\;d:\program files\arduino\hardware\tools\avr\avr\;d:\program files\arduino\hardware\tools\avr\lib\gcc\avr\4.8.1\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>D:\Dropbox\AP Hogeschool\Semester 4\Robot\RobotArduino\Visual Micro\.RobotArduino.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=160;ARDUINO_MAIN;__AVR__;__avr__;F_CPU=16000000L;__cplusplus;GCC_VERSION=40801;ARDUINO_ARCH_AVR;ARDUINO_AVR_MEGA2560;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -93,6 +93,18 @@
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\wiring_private.h" />
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.h" />
     <ClInclude Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\variants\mega\pins_arduino.h" />
+    <ClInclude Include="helper_3dmath.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="I2Cdev.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="MPU6050.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="MPU6050_6Axis_MotionApps20.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Robot.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -130,6 +142,8 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\wiring_shift.c" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WMath.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.cpp" />
+    <ClCompile Include="I2Cdev.cpp" />
+    <ClCompile Include="MPU6050.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="SignalFilter.cpp" />
