@@ -147,6 +147,7 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files\Arduino\hardware\arduino\avr\cores\arduino\WString.cpp" />
     <ClCompile Include="I2Cdev.cpp" />
     <ClCompile Include="MPU6050.cpp" />
+    <ClCompile Include="MPU6050_6Axis_MotionApps20.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Rotate.cpp" />
     <ClCompile Include="Sensor.cpp" />

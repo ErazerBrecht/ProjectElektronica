@@ -17,13 +17,14 @@ Robot Wagen(5, 6, 4, 8, 11, 12);
 Rotate rotate;
 
 enum Direction {
-	Left = TurnAngle,
-	Right = TurnAngle,
-	Around = 174
+	Left,
+	Right,
+	Around
 };
 
 Direction direction;
 bool turn;
+int angle;
 
 //Interrupt Service Routine
 void dmpDataReady() {
@@ -63,6 +64,7 @@ void Drive()
 			//Enable turn bool. This will activate the correct turn part of program.
 			turn = true;
 			direction = Left;
+			angle = TurnAngle;
 		}
 
 		else if (!uRight.isCloser(MinDistance))
@@ -73,6 +75,8 @@ void Drive()
 			//Enable turn bool. This will activate to correct turn part of program.
 			turn = true;
 			direction = Right;
+			angle = TurnAngle;
+			Serial.println("Je moet naar rechts!");
 		}
 
 		else if (!uReverse.isCloser(MinDistance))
@@ -80,6 +84,7 @@ void Drive()
 			rotate.Reset();
 			turn = true;
 			direction = Around;
+			angle = 184;
 			//Wagen.Reverse(Speed);
 		}
 		else
@@ -87,7 +92,6 @@ void Drive()
 			Wagen.Stop();
 		}
 	}
-
 	else
 	{
 		Turn();
@@ -98,13 +102,15 @@ void Turn()
 {
 	if (direction == Left)
 	{
+		Serial.println("NAA Links!!");
 		Wagen.Left(Speed, -Speed);
 	}
 	else{
+		Serial.println("NAA RECHTS!!");
 		Wagen.Right(-Speed, Speed);
 	}
 
-	if (abs(rotate.Degrees) >= direction)
+	if (abs(rotate.Degrees) >= angle)
 	{
 		turn = false;
 	}

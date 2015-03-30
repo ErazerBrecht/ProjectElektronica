@@ -215,6 +215,9 @@
     <ClCompile Include="twi.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MPU6050_6Axis_MotionApps20.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="RobotArduino.ino" />
