@@ -19,7 +19,9 @@ Rotate rotate;
 enum Direction {
 	Left,
 	Right,
-	Around
+	Around,
+	VariableRight,
+	VariableLeft
 };
 
 Direction direction;
@@ -54,6 +56,24 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
+			
+			if (uLeft.isCloser(7))
+			{
+				turn = true;
+				direction = VariableRight;
+				if (rotate.Degrees > 0)
+					angle = rotate.Degrees + 3;
+				else
+					angle = abs(rotate.Degrees) + 3;
+				//rotate.Reset();
+			}
+			else if (uRight.isCloser(7))
+			{
+				turn = true;
+				direction = VariableLeft;
+				angle = abs(rotate.Degrees) + 3;
+				//rotate.Reset();
+			}
 		}
 
 		else if (!uLeft.isCloser(MinDistance))
@@ -76,7 +96,6 @@ void Drive()
 			turn = true;
 			direction = Right;
 			angle = TurnAngle;
-			Serial.println("Je moet naar rechts!");
 		}
 
 		else if (!uReverse.isCloser(MinDistance))
@@ -102,14 +121,21 @@ void Turn()
 {
 	if (direction == Left)
 	{
-		Serial.println("NAA Links!!");
 		Wagen.Left(Speed, -Speed);
 	}
-	else{
-		Serial.println("NAA RECHTS!!");
+	else if (direction == VariableLeft)
+	{
+		Wagen.Left(Speed, Speed - 15);
+	}
+	else if (direction == VariableRight)
+	{
+		Wagen.Right(Speed - 15, Speed);
+		Serial.println("COMPENSATE");
+	}
+	else
+	{
 		Wagen.Right(-Speed, Speed);
 	}
-
 	if (abs(rotate.Degrees) >= angle)
 	{
 		turn = false;
