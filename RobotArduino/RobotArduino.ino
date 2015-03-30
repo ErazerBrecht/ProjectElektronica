@@ -7,13 +7,14 @@ Sensor uRight(26, 28);
 Sensor uLeft(30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
+#define Speed 200
+#define TurnAngle 83
+
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
 #include "Rotate.h"
 Rotate rotate;
 
-
-//float Angle;
 float oldAngle;
 bool turnLeft;
 bool turnRight;
@@ -45,7 +46,7 @@ void Drive()
 	{
 		if (!uForward.isCloser(15))
 		{
-			Wagen.Forward(150);
+			Wagen.Forward(Speed);
 		}
 
 		else if (!uLeft.isCloser(15))
@@ -72,7 +73,7 @@ void Drive()
 
 		else if (!uReverse.isCloser(20))
 		{
-			Wagen.Reverse(150);
+			Wagen.Reverse(Speed);
 		}
 		else
 		{
@@ -82,15 +83,15 @@ void Drive()
 
 	else if (turnLeft)
 	{
-		Wagen.Left(150, -150);
-		if (rotate.Degrees <= oldAngle - 82)
+		Wagen.Left(Speed, -Speed);
+		if (rotate.Degrees <= oldAngle - TurnAngle)
 		{
 			turnLeft = false;
 		}
 	}
 	else{
-		Wagen.Right(-150, 150);
-		if (rotate.Degrees >= oldAngle + 82)
+		Wagen.Right(-Speed, Speed);
+		if (rotate.Degrees >= oldAngle + TurnAngle)
 		{
 			turnRight = false;
 		}
