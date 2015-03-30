@@ -8,16 +8,22 @@ Sensor uLeft(30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
 #define Speed 200
-#define TurnAngle 83
+#define TurnAngle 84
+#define MinDistance 15
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
 #include "Rotate.h"
 Rotate rotate;
 
-float oldAngle;
-bool turnLeft;
-bool turnRight;
+enum Direction {
+	Left = TurnAngle,
+	Right = TurnAngle,
+	Around = 174
+};
+
+Direction direction;
+bool turn;
 
 //Interrupt Service Routine
 void dmpDataReady() {
@@ -42,38 +48,39 @@ void loop() {
 //Drive part!
 void Drive()
 {
-	if (!turnLeft && !turnRight)
+	if (!turn)
 	{
-		if (!uForward.isCloser(15))
+		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
 		}
 
-		else if (!uLeft.isCloser(15))
+		else if (!uLeft.isCloser(MinDistance))
 		{
 			//Reset degrees
 			rotate.Reset();
-			oldAngle = 0;
 
 			//Enable turn bool. This will activate the correct turn part of program.
-			turnLeft = true;
+			turn = true;
+			direction = Left;
 		}
 
-
-		else if (!uRight.isCloser(15))
+		else if (!uRight.isCloser(MinDistance))
 		{
-
 			//Reset degrees
 			rotate.Reset();
-			oldAngle = 0;
 
 			//Enable turn bool. This will activate to correct turn part of program.
-			turnRight = true;
+			turn = true;
+			direction = Right;
 		}
 
-		else if (!uReverse.isCloser(20))
+		else if (!uReverse.isCloser(MinDistance))
 		{
-			Wagen.Reverse(Speed);
+			rotate.Reset();
+			turn = true;
+			direction = Around;
+			//Wagen.Reverse(Speed);
 		}
 		else
 		{
@@ -81,19 +88,24 @@ void Drive()
 		}
 	}
 
-	else if (turnLeft)
+	else
+	{
+		Turn();
+	}
+}
+
+void Turn()
+{
+	if (direction == Left)
 	{
 		Wagen.Left(Speed, -Speed);
-		if (rotate.Degrees <= oldAngle - TurnAngle)
-		{
-			turnLeft = false;
-		}
 	}
 	else{
 		Wagen.Right(-Speed, Speed);
-		if (rotate.Degrees >= oldAngle + TurnAngle)
-		{
-			turnRight = false;
-		}
+	}
+
+	if (abs(rotate.Degrees) >= direction)
+	{
+		turn = false;
 	}
 }
