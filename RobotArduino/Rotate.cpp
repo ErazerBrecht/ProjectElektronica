@@ -108,3 +108,9 @@ void Rotate::Measure()
             Serial.println(Degrees, 0);
     }	
 }
+
+void Rotate::Reset()
+{
+	mpu.dmpInitialize();
+	mpu.setDMPEnabled(true);
+}

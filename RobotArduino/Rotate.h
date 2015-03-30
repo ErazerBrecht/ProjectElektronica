@@ -19,6 +19,8 @@ class Rotate
   public:
     void begin();
 	void Measure();
+	void Reset();
+
 	float Degrees;
 	bool Ready;
 	volatile byte mpuInterrupt = false;   // holds actual interrupt status byte from MPU

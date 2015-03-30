@@ -49,9 +49,7 @@ void Drive()
 		else if (!uLeft.isCloser(15))
 		{
 			//Reset degrees
-			//TODO: ADD RESET FUNCTION!!!!
-			//mpu.dmpInitialize();
-			//mpu.setDMPEnabled(true);
+			rotate.Reset();
 			oldAngle = 0;
 
 			//Enable turn bool. This will activate the correct turn part of program.
@@ -63,9 +61,7 @@ void Drive()
 		{
 
 			//Reset degrees
-			//TODO: ADD RESET FUNCTION!!!!
-			//mpu.dmpInitialize();
-			//mpu.setDMPEnabled(true);
+			rotate.Reset();
 			oldAngle = 0;
 
 			//Enable turn bool. This will activate to correct turn part of program.
