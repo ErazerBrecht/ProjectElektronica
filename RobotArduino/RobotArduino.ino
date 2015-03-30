@@ -1,9 +1,14 @@
-// I2C device class (I2Cdev) Arduino sketch for MPU6050
-// 6/21/2012 by Jeff Rowberg <jeff@rowberg.net>
-
 #include "Sensor.h"
 #include "Robot.h"
 
+Sensor uForward(9, 10);
+Sensor uReverse(22, 24);
+Sensor uRight(26, 28);
+Sensor uLeft(30, 32);
+Robot Wagen(5, 6, 4, 8, 11, 12);
+
+// I2C device class (I2Cdev) Arduino sketch for MPU6050
+// 6/21/2012 by Jeff Rowberg <jeff@rowberg.net>
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
 // for both classes must be in the include path of your project
 #include "I2Cdev.h"
@@ -11,12 +16,6 @@
 #include "Wire.h"
 
 MPU6050 mpu;
-
-Sensor uForward(9, 10);
-Sensor uReverse(22, 24);
-Sensor uRight(26, 28);
-Sensor uLeft(30, 32);
-Robot Wagen(5, 6, 4, 8, 11, 12);
 
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
@@ -37,7 +36,7 @@ bool turnLeft;
 bool turnRight;
 
 // ================================================================
-// ===               INTERRUPT DETECTION ROUTINE                ===
+// ===               INTERRUPT SERVICE ROUTINE                  ===
 // ================================================================
 
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
@@ -53,8 +52,6 @@ void dmpDataReady() {
 
 void setup() {
 	// initialize serial communication
-	// (115200 chosen because it is required for Teapot Demo output, but it's
-	// really up to you depending on your project)
 	Serial.begin(115200);
 
 	// join I2C bus (I2Cdev library doesn't do this automatically)
@@ -65,6 +62,7 @@ void setup() {
 	devStatus = mpu.dmpInitialize();
 
 	// supply your own gyro and acc offsets here, scaled for min sensitivity
+	// use calibrate test for automatic calculation of offsets
 	mpu.setXAccelOffset(-3795);
 	mpu.setYAccelOffset(349);
 	mpu.setZAccelOffset(2239);
