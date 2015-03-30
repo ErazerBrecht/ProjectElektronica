@@ -34,6 +34,8 @@ void setup() {
 
 void loop() {
 	rotate.Measure();
+	if (rotate.Ready)
+		Drive();
 }
 
 //Drive part!

@@ -65,6 +65,8 @@ void Rotate::begin()
 
 void Rotate::Measure()
 {
+	Ready = false;
+
     // if programming failed, don't try to do anything
     if (!dmpReady) 
       return;
@@ -106,6 +108,8 @@ void Rotate::Measure()
             mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
 			Degrees = ypr[0] * 180/M_PI;
             Serial.println(Degrees, 0);
+			//Now the sketch knows measure is done.
+			Ready = true;
     }	
 }
 
