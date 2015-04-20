@@ -7,9 +7,9 @@ Sensor uRight(26, 28);
 Sensor uLeft(30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
-#define Speed 200
-#define TurnAngle 84
-#define MinDistance 15
+#define Speed 100
+#define TurnAngle 60
+#define MinDistance 17
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -26,6 +26,7 @@ enum Direction {
 
 Direction direction;
 bool turn;
+bool  variableturn;
 int angle;
 
 //Interrupt Service Routine
@@ -51,28 +52,23 @@ void loop() {
 //Drive part!
 void Drive()
 {
+	variableturn = false;
 	if (!turn)
 	{
+		
 		if (!uForward.isCloser(MinDistance))
 		{
-			Wagen.Forward(Speed);
-			
+			//Wagen.Forward(Speed);
 			if (uLeft.isCloser(7))
 			{
-				turn = true;
+				variableturn = true;
 				direction = VariableRight;
-				if (rotate.Degrees > 0)
-					angle = rotate.Degrees + 3;
-				else
-					angle = abs(rotate.Degrees) + 3;
-				//rotate.Reset();
+				
 			}
 			else if (uRight.isCloser(7))
 			{
-				turn = true;
+				variableturn = true;
 				direction = VariableLeft;
-				angle = abs(rotate.Degrees) + 3;
-				//rotate.Reset();
 			}
 		}
 
@@ -80,38 +76,37 @@ void Drive()
 		{
 			//Reset degrees
 			rotate.Reset();
-
+			angle = TurnAngle;
 			//Enable turn bool. This will activate the correct turn part of program.
 			turn = true;
 			direction = Left;
-			angle = TurnAngle;
+			
 		}
 
 		else if (!uRight.isCloser(MinDistance))
 		{
 			//Reset degrees
 			rotate.Reset();
-
+			angle = TurnAngle;
 			//Enable turn bool. This will activate to correct turn part of program.
 			turn = true;
 			direction = Right;
-			angle = TurnAngle;
 		}
 
-		else if (!uReverse.isCloser(MinDistance))
+		/*else if (!uReverse.isCloser(MinDistance))
 		{
 			rotate.Reset();
 			turn = true;
 			direction = Around;
 			angle = 184;
 			//Wagen.Reverse(Speed);
-		}
+		}*/
 		else
 		{
 			Wagen.Stop();
 		}
 	}
-	else
+	if (turn || variableturn)
 	{
 		Turn();
 	}
@@ -119,23 +114,29 @@ void Drive()
 
 void Turn()
 {
+	/*
 	if (direction == Left)
 	{
 		Wagen.Left(Speed, -Speed);
 	}
 	else if (direction == VariableLeft)
 	{
-		Wagen.Left(Speed, Speed - 15);
+		Wagen.Left(Speed, Speed - 25);
+		Serial.println("COMPENSATE");
 	}
 	else if (direction == VariableRight)
 	{
-		Wagen.Right(Speed - 15, Speed);
+		Wagen.Right(Speed - 25, Speed);
 		Serial.println("COMPENSATE");
 	}
 	else
 	{
 		Wagen.Right(-Speed, Speed);
-	}
+	}*/
+	Serial.print("meting: ");
+	Serial.println(abs(rotate.Degrees));
+	Serial.print("gewenst: ");
+	Serial.println(angle);
 	if (abs(rotate.Degrees) >= angle)
 	{
 		turn = false;

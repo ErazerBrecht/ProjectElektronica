@@ -32,12 +32,12 @@ void Rotate::begin()
     devStatus = mpu.dmpInitialize();
 	
 	// reset gyro offsets here for calibration
-	mpu.setXAccelOffset(-3773);
-	mpu.setYAccelOffset(333);
-	mpu.setZAccelOffset(2267);
-	mpu.setXGyroOffset(46);
-	mpu.setYGyroOffset(-47);
-	mpu.setZGyroOffset(-31);
+	mpu.setXAccelOffset(-3553);
+	mpu.setYAccelOffset(418);
+	mpu.setZAccelOffset(2242);
+	mpu.setXGyroOffset(39);
+	mpu.setYGyroOffset(-56);
+	mpu.setZGyroOffset(-40);
 
     // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
@@ -115,6 +115,10 @@ void Rotate::Measure()
 
 void Rotate::Reset()
 {
-	mpu.dmpInitialize();
-	mpu.setDMPEnabled(true);
+	//mpu.dmpInitialize();
+	//mpu.setDMPEnabled(true);
+	mpu.resetDMP();
+	mpu.resetFIFO();
+	mpu.resetGyroscopePath();
+	delay(50);
 }
