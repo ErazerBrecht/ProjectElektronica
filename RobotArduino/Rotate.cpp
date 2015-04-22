@@ -19,16 +19,13 @@ void Rotate::begin()
 	TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz)
 	
 	// initialize device
-    Serial.println(F("Initializing I2Cà devices..."));
     mpu.initialize();
 	devStatus = mpu.dmpInitialize();
 
     // verify connection
-    Serial.println(F("Testing device connections..."));
     Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed")); 
 	
 	// load and configure the DMP
-    Serial.println(F("Initializing DMP..."));
     devStatus = mpu.dmpInitialize();
 	
 	// reset gyro offsets here for calibration
@@ -115,10 +112,6 @@ void Rotate::Measure()
 
 void Rotate::Reset()
 {
-	//mpu.dmpInitialize();
-	//mpu.setDMPEnabled(true);
-	mpu.resetDMP();
-	mpu.resetFIFO();
-	mpu.resetGyroscopePath();
+	begin();
 	delay(50);
 }
