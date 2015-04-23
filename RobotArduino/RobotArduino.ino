@@ -10,9 +10,9 @@ Sensor uLeft(30, 32);
 // Robot class. Class for driving the motors!
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
-#define Speed 100
+#define Speed 200
 #define TurnAngle 87
-#define MinDistance 17
+#define MinDistance 10
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -61,13 +61,13 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
-			if (uLeft.isCloser(7))
+			if (uLeft.isCloser(8))
 			{
 				variableturn = true;
 				direction = VariableRight;
 
 			}
-			else if (uRight.isCloser(7))
+			else if (uRight.isCloser(8))
 			{
 				variableturn = true;
 				direction = VariableLeft;
@@ -77,32 +77,31 @@ void Drive()
 		else if (!uLeft.isCloser(MinDistance))
 		{
 			//Reset degrees
-			rotate.Reset();
-			angle = TurnAngle;
+			//rotate.Reset();
+			angle = TurnAngle - rotate.Degrees;
 			//Enable turn bool. This will activate the correct turn part of program.
 			turn = true;
 			direction = Left;
-
 		}
 
 		else if (!uRight.isCloser(MinDistance))
 		{
 			//Reset degrees
-			rotate.Reset();
-			angle = TurnAngle;
+			//rotate.Reset();
+			angle = TurnAngle - rotate.Degrees;
 			//Enable turn bool. This will activate to correct turn part of program.
 			turn = true;
 			direction = Right;
 		}
 
-		else if (!uReverse.isCloser(MinDistance))
+		/*else if (!uReverse.isCloser(MinDistance))
 		{
 			rotate.Reset();
 			turn = true;
 			direction = Around;
 			angle = 184;
 			Wagen.Reverse(Speed);
-		}
+		}*/
 		else
 		{
 			Wagen.Stop();
@@ -119,24 +118,24 @@ void Turn()
 
 	if (direction == VariableLeft)
 	{
-		Wagen.Left(Speed, Speed - 25);
+		Wagen.Left(Speed, Speed - 35);
 		Serial.println("COMPENSATE");
 	}
 	else if (direction == VariableRight)
 	{
-		Wagen.Right(Speed - 25, Speed);
+		Wagen.Right(Speed - 35, Speed);
 		Serial.println("COMPENSATE");
 	}
 	else
 	{
 		if (direction == Left)
 		{
-			Wagen.Left(Speed, -Speed);
+			Wagen.Left(100, -100);
 		}
 
 		else
 		{
-			Wagen.Right(-Speed, Speed);
+			Wagen.Right(-100, 100);
 		}
 
 		/*Serial.print("meting: ");
