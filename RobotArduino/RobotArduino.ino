@@ -4,8 +4,8 @@
 // Sensor classes. Class for measuring distance to wall!
 Sensor uForward(9, 10);
 Sensor uReverse(22, 24);
-Sensor uRight(26, 28);
-Sensor uLeft(30, 32);
+Sensor uSide(26, 28, 30, 32);
+//Sensor uLeft(30, 32);
 
 // Robot class. Class for driving the motors!
 Robot Wagen(5, 6, 4, 8, 11, 12);
@@ -61,51 +61,55 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
-			if (uLeft.isCloser(8))
+			if (uSide._ultraTwo.isCloser(8))
 			{
 				variableturn = true;
 				direction = VariableRight;
 
 			}
-			else if (uRight.isCloser(8))
+			else if (uSide._ultraOne.isCloser(8))
 			{
 				variableturn = true;
 				direction = VariableLeft;
 			}
 		}
 
-		else if (!uLeft.isCloser(MinDistance))
+		else if (uSide.isCloser(MinDistance))
 		{
-			//Reset degrees
-			//rotate.Reset();
-			angle = TurnAngle - rotate.Degrees;
-			//Enable turn bool. This will activate the correct turn part of program.
-			turn = true;
-			direction = Left;
+			Wagen.Stop();
 		}
 
-		else if (!uRight.isCloser(MinDistance))
-		{
-			//Reset degrees
-			//rotate.Reset();
-			angle = TurnAngle - rotate.Degrees;
-			//Enable turn bool. This will activate to correct turn part of program.
-			turn = true;
-			direction = Right;
+		else{
+			if (uSide.isFarDual() == true)
+			{
+				//Reset degrees
+				//rotate.Reset();
+				angle = TurnAngle - rotate.Degrees;
+				//Enable turn bool. This will activate to correct turn part of program.
+				turn = true;
+				direction = Right;
+				Serial.println("RIGHT");
+			}
+			else{
+				//Reset degrees
+				//rotate.Reset();
+				angle = TurnAngle - rotate.Degrees;
+				//Enable turn bool. This will activate the correct turn part of program.
+				turn = true;
+				direction = Left;
+				Serial.println("LEFT");
+			}
+
 		}
 
 		/*else if (!uReverse.isCloser(MinDistance))
 		{
-			rotate.Reset();
-			turn = true;
-			direction = Around;
-			angle = 184;
-			Wagen.Reverse(Speed);
+		rotate.Reset();
+		turn = true;
+		direction = Around;
+		angle = 184;
+		Wagen.Reverse(Speed);
 		}*/
-		else
-		{
-			Wagen.Stop();
-		}
 	}
 	if (turn || variableturn)
 	{
@@ -138,10 +142,10 @@ void Turn()
 			Wagen.Right(-100, 100);
 		}
 
-		/*Serial.print("meting: ");
+		Serial.print("meting: ");
 		Serial.println(abs(rotate.Degrees));
 		Serial.print("gewenst: ");
-		Serial.println(angle);*/
+		Serial.println(angle);
 
 		if (abs(rotate.Degrees) >= angle)
 		{

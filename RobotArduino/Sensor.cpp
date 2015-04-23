@@ -20,11 +20,18 @@ bool Sensor::isCloser(int x)
 	
 	else
 	{
-		if (_ultraOne.isCloser(x) || _ultraTwo.isCloser(x))
+		if (_ultraOne.isCloser(x) && _ultraTwo.isCloser(x))
 			return true;
 		else
 			return false;
 	}
+}
+
+bool Sensor::isFarDual()
+{
+	if (_ultraOne.getCentimeter() > _ultraTwo.getCentimeter())
+		return true;
+	return false;
 }
 
 

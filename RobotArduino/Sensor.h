@@ -16,6 +16,11 @@ public:
 	Sensor(int trigPin, int pinEcho);
 	Sensor(int trigPin, int pinEcho, int trigPin2, int pinEcho2);
 	bool isCloser(int x);
+	bool isFarDual();		//Check wich sensor has the most place...
+
+	//TODO: Change names!
+	Ultrasoon _ultraOne;
+	Ultrasoon _ultraTwo;
 
 private:
 	int _trigPin;
@@ -25,8 +30,6 @@ private:
 	bool _double;
 
 	//Should become an array!
-	Ultrasoon _ultraOne;
-	Ultrasoon _ultraTwo;
 };
 
 #endif

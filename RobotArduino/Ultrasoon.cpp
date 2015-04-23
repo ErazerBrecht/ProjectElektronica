@@ -25,7 +25,7 @@ void Ultrasoon::begin(int trigPin, int echoPin)
 //Private!
 //The main function of this library
 //This function will do the measuring!
-void Ultrasoon::getCentimeter()
+long Ultrasoon::getCentimeter()
 {
 	// The sensor is triggered by a HIGH pulse of 10 or more microseconds.
 	// Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
@@ -53,6 +53,8 @@ void Ultrasoon::getCentimeter()
 	{
 		_filteredDistance = 401;
 	}
+
+	return _filteredDistance;
 }
 
 //First measure distance with private function (getCentimeter)

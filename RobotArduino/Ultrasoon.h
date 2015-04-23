@@ -15,6 +15,7 @@ class Ultrasoon
   public:
     void begin(int trigPin, int echoPin); 
 	bool isCloser(int x);
+	long getCentimeter();
 
   private:
     int _trigPin;
@@ -22,7 +23,6 @@ class Ultrasoon
     SignalFilter Filter;
 	long _duration;
 	long _filteredDistance;
-	void getCentimeter();
 };
 
 #endif
