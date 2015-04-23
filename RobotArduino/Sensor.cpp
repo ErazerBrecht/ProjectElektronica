@@ -2,36 +2,50 @@
 
 Sensor::Sensor(int trigPin, int echoPin)
 {
-     _ultraOne.begin(trigPin, echoPin);
+     Ultra[0].begin(trigPin, echoPin);
 	 _double = false;
 }
 
 Sensor::Sensor(int trigPin, int echoPin, int trigPin2, int echoPin2)
 {
-	_ultraOne.begin(trigPin, echoPin);
-	_ultraTwo.begin(trigPin2, echoPin2);
+	Ultra[0].begin(trigPin, echoPin);
+	Ultra[1].begin(trigPin2, echoPin2);
 	_double = true;
 }
 
 bool Sensor::isCloser(int x)
 {
 	if (!_double)
-		return _ultraOne.isCloser(x);
+		return Ultra[0].isCloser(x);
 	
 	else
 	{
-		if (_ultraOne.isCloser(x) && _ultraTwo.isCloser(x))
+		if (Ultra[0].isCloser(x) && Ultra[1].isCloser(x))
 			return true;
 		else
 			return false;
 	}
 }
 
-bool Sensor::isFarDual()
+bool Sensor::isCloser(int sensornumer, int x)
 {
-	if (_ultraOne.getCentimeter() > _ultraTwo.getCentimeter())
-		return true;
+	if (_double)
+	{
+		if (Ultra[sensornumer].isCloser(x))
+			return true;
+		else
+			return false;
+	}
 	return false;
+}
+
+int Sensor::calculateTurnDirection()
+{
+	if (Ultra[0].getCentimeter() > Ultra[1].getCentimeter())
+	{
+		return 0;
+	}
+	return 1;
 }
 
 

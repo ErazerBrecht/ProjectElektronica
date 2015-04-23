@@ -11,8 +11,8 @@ Sensor uSide(26, 28, 30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
 #define Speed 200
-#define TurnAngle 87
-#define MinDistance 10
+#define TurnAngle 85
+#define MinDistance 8
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -61,13 +61,13 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
-			if (uSide._ultraTwo.isCloser(8))
+			if (uSide.isCloser(1, MinDistance))			//[1] is left sensor!
 			{
 				variableturn = true;
 				direction = VariableRight;
 
 			}
-			else if (uSide._ultraOne.isCloser(8))
+			else if (uSide.isCloser(0, MinDistance))		//[0] is right sensor!
 			{
 				variableturn = true;
 				direction = VariableLeft;
@@ -80,10 +80,9 @@ void Drive()
 		}
 
 		else{
-			if (uSide.isFarDual() == true)
+			//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+			if (uSide.calculateTurnDirection() == 0)		
 			{
-				//Reset degrees
-				//rotate.Reset();
 				angle = TurnAngle - rotate.Degrees;
 				//Enable turn bool. This will activate to correct turn part of program.
 				turn = true;
@@ -91,8 +90,6 @@ void Drive()
 				Serial.println("RIGHT");
 			}
 			else{
-				//Reset degrees
-				//rotate.Reset();
 				angle = TurnAngle - rotate.Degrees;
 				//Enable turn bool. This will activate the correct turn part of program.
 				turn = true;
@@ -119,16 +116,13 @@ void Drive()
 
 void Turn()
 {
-
 	if (direction == VariableLeft)
 	{
-		Wagen.Left(Speed, Speed - 35);
-		Serial.println("COMPENSATE");
+		Wagen.Left(Speed, Speed - 45);
 	}
 	else if (direction == VariableRight)
 	{
-		Wagen.Right(Speed - 35, Speed);
-		Serial.println("COMPENSATE");
+		Wagen.Right(Speed - 45, Speed);
 	}
 	else
 	{
@@ -142,9 +136,9 @@ void Turn()
 			Wagen.Right(-100, 100);
 		}
 
-		Serial.print("meting: ");
+		Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
-		Serial.print("gewenst: ");
+		Serial.print("Gewenst: ");
 		Serial.println(angle);
 
 		if (abs(rotate.Degrees) >= angle)
