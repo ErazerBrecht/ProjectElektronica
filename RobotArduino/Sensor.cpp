@@ -20,8 +20,14 @@ bool Sensor::isCloser(int x)
 	
 	else
 	{
-		if (Ultra[0].isCloser(x) && Ultra[1].isCloser(x))
+		if (Ultra[0].isCloser(x) || Ultra[1].isCloser(x))
+		{
+			Serial.print("Afstand sensor 1: ");
+			Serial.println(Ultra[0]._filteredDistance);
+			Serial.print("Afstand sensor 2: ");
+			Serial.println(Ultra[1]._filteredDistance);
 			return true;
+		}
 		else
 			return false;
 	}
@@ -32,6 +38,18 @@ bool Sensor::isCloser(int sensornumer, int x)
 	if (_double)
 	{
 		if (Ultra[sensornumer].isCloser(x))
+			return true;
+		else
+			return false;
+	}
+	return false;
+}
+
+bool Sensor::bothCloser(int x)
+{
+	if (_double)
+	{
+		if (Ultra[0].isCloser(x) && Ultra[1].isCloser(x))
 			return true;
 		else
 			return false;

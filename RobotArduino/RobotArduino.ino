@@ -2,8 +2,8 @@
 #include "Robot.h"
 
 // Sensor classes. Class for measuring distance to wall!
-Sensor uForward(9, 10);
-Sensor uReverse(22, 24);
+Sensor uForward(9, 10, 52, 53);
+//Sensor uReverse(22, 24);
 Sensor uSide(26, 28, 30, 32);
 //Sensor uLeft(30, 32);
 
@@ -12,7 +12,7 @@ Robot Wagen(5, 6, 4, 8, 11, 12);
 
 #define Speed 200
 #define TurnAngle 85
-#define MinDistance 8
+#define MinDistance 7
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -61,20 +61,20 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
-			if (uSide.isCloser(1, MinDistance))			//[1] is left sensor!
+			if (uSide.isCloser(1, 8))			//[1] is left sensor!
 			{
 				variableturn = true;
 				direction = VariableRight;
 
 			}
-			else if (uSide.isCloser(0, MinDistance))		//[0] is right sensor!
+			else if (uSide.isCloser(0, 8))		//[0] is right sensor!
 			{
 				variableturn = true;
 				direction = VariableLeft;
 			}
 		}
 
-		else if (uSide.isCloser(MinDistance))
+		else if (uSide.bothCloser(MinDistance))
 		{
 			Wagen.Stop();
 		}
@@ -136,10 +136,12 @@ void Turn()
 			Wagen.Right(-100, 100);
 		}
 
+		
 		Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
 		Serial.print("Gewenst: ");
 		Serial.println(angle);
+		
 
 		if (abs(rotate.Degrees) >= angle)
 		{
