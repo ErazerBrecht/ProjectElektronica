@@ -11,7 +11,7 @@ Sensor uSide(26, 28, 30, 32);
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
 #define Speed 200
-#define TurnAngle 85
+#define TurnAngle 83
 #define MinDistance 7
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
@@ -136,12 +136,12 @@ void Turn()
 			Wagen.Right(-100, 100);
 		}
 
-		
+		/*
 		Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
 		Serial.print("Gewenst: ");
 		Serial.println(angle);
-		
+		*/
 
 		if (abs(rotate.Degrees) >= angle)
 		{
