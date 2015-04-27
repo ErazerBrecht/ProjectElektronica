@@ -113,5 +113,5 @@ void Rotate::Measure()
 void Rotate::Reset()
 {
 	begin();
-	delay(50);
+	delay(100);
 }

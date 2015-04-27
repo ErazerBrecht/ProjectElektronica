@@ -16,7 +16,12 @@ public:
 	Sensor(int trigPin, int pinEcho);
 	Sensor(int trigPin, int pinEcho, int trigPin2, int pinEcho2);
 	bool isCloser(int x);
-
+	bool isCloser(int sensornumer, int x);
+	bool bothCloser(int x);
+	int calculateTurnDirection();		//Check wich sensor has the most place... If sensor right has more place turn right!
+	//TODO: Should become an array!
+	Ultrasoon Ultra[2];
+	
 private:
 	int _trigPin;
 	int _echoPin;
@@ -24,9 +29,6 @@ private:
 	int _echoPin2;
 	bool _double;
 
-	//Should become an array!
-	Ultrasoon _ultraOne;
-	Ultrasoon _ultraTwo;
 };
 
 #endif

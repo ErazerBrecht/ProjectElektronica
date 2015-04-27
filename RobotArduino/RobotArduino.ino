@@ -2,17 +2,17 @@
 #include "Robot.h"
 
 // Sensor classes. Class for measuring distance to wall!
-Sensor uForward(9, 10);
-Sensor uReverse(22, 24);
-Sensor uRight(26, 28);
-Sensor uLeft(30, 32);
+Sensor uForward(9, 10, 52, 53);
+//Sensor uReverse(22, 24);
+Sensor uSide(26, 28, 30, 32);
+//Sensor uLeft(30, 32);
 
 // Robot class. Class for driving the motors!
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
 #define Speed 200
-#define TurnAngle 87
-#define MinDistance 10
+#define TurnAngle 83
+#define MinDistance 7
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -61,51 +61,52 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
-			if (uLeft.isCloser(8))
+			if (uSide.isCloser(1, 8))			//[1] is left sensor!
 			{
 				variableturn = true;
 				direction = VariableRight;
 
 			}
-			else if (uRight.isCloser(8))
+			else if (uSide.isCloser(0, 8))		//[0] is right sensor!
 			{
 				variableturn = true;
 				direction = VariableLeft;
 			}
 		}
 
-		else if (!uLeft.isCloser(MinDistance))
+		else if (uSide.bothCloser(MinDistance))
 		{
-			//Reset degrees
-			//rotate.Reset();
-			angle = TurnAngle - rotate.Degrees;
-			//Enable turn bool. This will activate the correct turn part of program.
-			turn = true;
-			direction = Left;
+			Wagen.Stop();
 		}
 
-		else if (!uRight.isCloser(MinDistance))
-		{
-			//Reset degrees
-			//rotate.Reset();
-			angle = TurnAngle - rotate.Degrees;
-			//Enable turn bool. This will activate to correct turn part of program.
-			turn = true;
-			direction = Right;
+		else{
+			//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+			if (uSide.calculateTurnDirection() == 0)		
+			{
+				angle = TurnAngle - rotate.Degrees;
+				//Enable turn bool. This will activate to correct turn part of program.
+				turn = true;
+				direction = Right;
+				Serial.println("RIGHT");
+			}
+			else{
+				angle = TurnAngle - rotate.Degrees;
+				//Enable turn bool. This will activate the correct turn part of program.
+				turn = true;
+				direction = Left;
+				Serial.println("LEFT");
+			}
+
 		}
 
 		/*else if (!uReverse.isCloser(MinDistance))
 		{
-			rotate.Reset();
-			turn = true;
-			direction = Around;
-			angle = 184;
-			Wagen.Reverse(Speed);
+		rotate.Reset();
+		turn = true;
+		direction = Around;
+		angle = 184;
+		Wagen.Reverse(Speed);
 		}*/
-		else
-		{
-			Wagen.Stop();
-		}
 	}
 	if (turn || variableturn)
 	{
@@ -115,16 +116,13 @@ void Drive()
 
 void Turn()
 {
-
 	if (direction == VariableLeft)
 	{
-		Wagen.Left(Speed, Speed - 35);
-		Serial.println("COMPENSATE");
+		Wagen.Left(Speed, Speed - 45);
 	}
 	else if (direction == VariableRight)
 	{
-		Wagen.Right(Speed - 35, Speed);
-		Serial.println("COMPENSATE");
+		Wagen.Right(Speed - 45, Speed);
 	}
 	else
 	{
@@ -138,10 +136,12 @@ void Turn()
 			Wagen.Right(-100, 100);
 		}
 
-		/*Serial.print("meting: ");
+		/*
+		Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
-		Serial.print("gewenst: ");
-		Serial.println(angle);*/
+		Serial.print("Gewenst: ");
+		Serial.println(angle);
+		*/
 
 		if (abs(rotate.Degrees) >= angle)
 		{
