@@ -55,7 +55,7 @@ long Ultrasoon::getCentimeter()
 	}
 
 	//Is really needed for dual sensors!
-	delay(2);
+	delay(3);
 
 	return _filteredDistance;
 }

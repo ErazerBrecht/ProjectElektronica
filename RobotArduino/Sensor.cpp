@@ -20,12 +20,14 @@ bool Sensor::isCloser(int x)
 	
 	else
 	{
+		/*
+		Serial.print("Afstand sensor 1: ");
+		Serial.println(Ultra[0]._filteredDistance);
+		Serial.print("Afstand sensor 2: ");
+		Serial.println(Ultra[1]._filteredDistance);
+		*/
 		if (Ultra[0].isCloser(x) || Ultra[1].isCloser(x))
 		{
-			Serial.print("Afstand sensor 1: ");
-			Serial.println(Ultra[0]._filteredDistance);
-			Serial.print("Afstand sensor 2: ");
-			Serial.println(Ultra[1]._filteredDistance);
 			return true;
 		}
 		else
@@ -59,11 +61,17 @@ bool Sensor::bothCloser(int x)
 
 int Sensor::calculateTurnDirection()
 {
-	if (Ultra[0].getCentimeter() > Ultra[1].getCentimeter())
+	if (Ultra[0].getCentimeter() < 20 || Ultra[1].getCentimeter() < 20)
 	{
-		return 0;
+		if (Ultra[0].getCentimeter() > Ultra[1].getCentimeter())
+		{
+			return 0;
+		}
+
+		return 1;
 	}
-	return 1;
+
+	else return random(0, 2);
 }
 
 

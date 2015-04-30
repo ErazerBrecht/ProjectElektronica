@@ -58,29 +58,40 @@ void Drive()
 	variableturn = false;
 	if (!turn)
 	{
+		/*
+		Serial.print("Forward Closer");
+		Serial.println(uForward.isCloser(MinDistance));
+		Serial.print("Both Closer: ");
+		Serial.println(uSide.bothCloser(MinDistance));
+		*/
+
 		if (!uForward.isCloser(MinDistance))
 		{
 			Wagen.Forward(Speed);
-			if (uSide.isCloser(1, 8))			//[1] is left sensor!
-			{
-				variableturn = true;
-				direction = VariableRight;
+				if (uSide.isCloser(0, 9))			//[0] is left sensor!
+				{
+					variableturn = true;
+					direction = VariableLeft;
 
-			}
-			else if (uSide.isCloser(0, 8))		//[0] is right sensor!
-			{
-				variableturn = true;
-				direction = VariableLeft;
-			}
+				}
+				else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
+				{
+					variableturn = true;
+					direction = VariableRight;
+				}
+			
 		}
 
 		else if (uSide.bothCloser(MinDistance))
 		{
+			Serial.println("STOP");
 			Wagen.Stop();
 		}
 
 		else{
 			//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+			//Serial.print("Random: ");
+			//Serial.println(uSide.calculateTurnDirection());
 			if (uSide.calculateTurnDirection() == 0)		
 			{
 				angle = TurnAngle - rotate.Degrees;
@@ -90,7 +101,7 @@ void Drive()
 				Serial.println("RIGHT");
 			}
 			else{
-				angle = TurnAngle - rotate.Degrees;
+				angle = TurnAngle + rotate.Degrees;
 				//Enable turn bool. This will activate the correct turn part of program.
 				turn = true;
 				direction = Left;
@@ -118,11 +129,11 @@ void Turn()
 {
 	if (direction == VariableLeft)
 	{
-		Wagen.Left(Speed, Speed - 45);
+		Wagen.Left(Speed, Speed - 40);
 	}
 	else if (direction == VariableRight)
 	{
-		Wagen.Right(Speed - 45, Speed);
+		Wagen.Right(Speed - 30, Speed);
 	}
 	else
 	{
