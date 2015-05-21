@@ -1,5 +1,6 @@
 #include "Sensor.h"
 #include "Robot.h"
+#include "Tone.h"
 
 // Sensor classes. Class for measuring distance to wall!
 Sensor uForward(9, 10, 52, 53);
@@ -10,7 +11,12 @@ Sensor uSide(26, 28, 30, 32);
 // Robot class. Class for driving the motors!
 Robot Wagen(5, 6, 4, 8, 11, 12);
 
-#define Speed 200
+//Tone class. For playing song
+Tone t;
+bool found;
+bool NoScope = true;
+
+#define Speed 100
 #define TurnAngle 83
 #define MinDistance 7
 
@@ -44,6 +50,9 @@ void setup() {
 	Serial.begin(115200);
 	// begin our wrapper library (init mpu)
 	rotate.begin();
+
+	//start the Tone library (playing song), add pin of speaker!
+	t.begin(38);
 }
 
 void loop() {
@@ -56,69 +65,102 @@ void loop() {
 void Drive()
 {
 	variableturn = false;
-	if (!turn)
+		
+	if (NoScope && found == false)
 	{
-		/*
-		Serial.print("Forward Closer");
-		Serial.println(uForward.isCloser(MinDistance));
-		Serial.print("Both Closer: ");
-		Serial.println(uSide.bothCloser(MinDistance));
-		*/
-
-		if (!uForward.isCloser(MinDistance))
-		{
-			Wagen.Forward(Speed);
-				if (uSide.isCloser(0, 9))			//[0] is left sensor!
-				{
-					variableturn = true;
-					direction = VariableLeft;
-
-				}
-				else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
-				{
-					variableturn = true;
-					direction = VariableRight;
-				}
-			
-		}
-
-		else if (uSide.bothCloser(MinDistance))
-		{
-			Serial.println("STOP");
-			Wagen.Stop();
-		}
-
-		else{
-			//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
-			//Serial.print("Random: ");
-			//Serial.println(uSide.calculateTurnDirection());
-			if (uSide.calculateTurnDirection() == 0)		
-			{
-				angle = TurnAngle - rotate.Degrees;
-				//Enable turn bool. This will activate to correct turn part of program.
-				turn = true;
-				direction = Right;
-				Serial.println("RIGHT");
-			}
-			else{
-				angle = TurnAngle + rotate.Degrees;
-				//Enable turn bool. This will activate the correct turn part of program.
-				turn = true;
-				direction = Left;
-				Serial.println("LEFT");
-			}
-
-		}
-
-		/*else if (!uReverse.isCloser(MinDistance))
-		{
-		rotate.Reset();
-		turn = true;
-		direction = Around;
-		angle = 184;
-		Wagen.Reverse(Speed);
-		}*/
+		Search();
 	}
+	else{
+		if (!turn)
+		{
+			/*
+			Serial.print("Forward Closer");
+			Serial.println(uForward.isCloser(MinDistance));
+			Serial.print("Both Closer: ");
+			Serial.println(uSide.bothCloser(MinDistance));
+			*/
+
+			int analog = analogRead(A0);
+
+			if (!uForward.isCloser(MinDistance))
+			{
+				if (found)
+				{
+					if (analog < 100)
+						Wagen.Forward(200);
+					else
+						Wagen.Left(100, -100);
+				}
+				else
+				{
+					Wagen.Forward(Speed);
+					if (uSide.isCloser(0, 9))			//[0] is left sensor!
+					{
+						variableturn = true;
+						direction = VariableLeft;
+
+					}
+					else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
+					{
+						variableturn = true;
+						direction = VariableRight;
+					}
+				}
+			}
+
+			else if (found)
+			{
+				if (analog < 100)
+				{
+					Wagen.Stop();
+					t.playMario();
+					found = false;
+				}
+				else{
+					NoScope = true;
+					found = false;
+				}
+			}
+
+			else if (uSide.bothCloser(MinDistance))
+			{
+				Serial.println("STOP");
+				Wagen.Stop();
+			}
+
+			else{
+				//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+				//Serial.print("Random: ");
+				//Serial.println(uSide.calculateTurnDirection());
+				if (uSide.calculateTurnDirection() == 0)
+				{
+					angle = TurnAngle - rotate.Degrees;
+					//Enable turn bool. This will activate to correct turn part of program.
+					turn = true;
+					direction = Right;
+					Serial.println("RIGHT");
+				}
+				else{
+					angle = TurnAngle + rotate.Degrees;
+					//Enable turn bool. This will activate the correct turn part of program.
+					turn = true;
+					direction = Left;
+					Serial.println("LEFT");
+				}
+
+			}
+
+			/*else if (!uReverse.isCloser(MinDistance))
+			{
+			rotate.Reset();
+			turn = true;
+			direction = Around;
+			angle = 184;
+			Wagen.Reverse(Speed);
+			}*/
+		}
+	}
+
 	if (turn || variableturn)
 	{
 		Turn();
@@ -147,10 +189,10 @@ void Turn()
 			Wagen.Right(-100, 100);
 		}
 
-		/*
+		
 		Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
-		Serial.print("Gewenst: ");
+		/*Serial.print("Gewenst: ");
 		Serial.println(angle);
 		*/
 
@@ -159,6 +201,31 @@ void Turn()
 			turn = false;
 			Wagen.Stop();
 			rotate.Reset();
+			NoScope = true;
 		}
+	}
+}
+
+void Search()
+{
+	Serial.println("LOL");
+
+	if ((int)floor(rotate.Degrees) != -2)
+	{
+		Serial.println(rotate.Degrees);
+		int analog = analogRead(A0);
+		if (analog < 100)
+		{
+			found = true;
+		}
+		else if (analog > 110){
+			Wagen.Left(-100, 100);
+		}
+	}
+	else
+	{
+		NoScope = false;
+		Serial.println((int)floor(rotate.Degrees));
+		Serial.println("KLEIR");
 	}
 }

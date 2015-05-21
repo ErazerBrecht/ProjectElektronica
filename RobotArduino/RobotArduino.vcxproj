@@ -125,7 +125,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\avr-libc\malloc.c" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\avr-libc\realloc.c" />
-    <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\HardwareSerial.cpp" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\HID.cpp" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\IPAddress.cpp" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\main.cpp" />

@@ -155,9 +155,6 @@
     <ClCompile Include="MPU6050_6Axis_MotionApps20.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\HardwareSerial.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\HID.cpp">
       <Filter>_core</Filter>
     </ClCompile>
