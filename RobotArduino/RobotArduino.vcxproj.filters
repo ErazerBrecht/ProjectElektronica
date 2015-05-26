@@ -123,6 +123,9 @@
     <ClInclude Include="..\..\..\..\..\Arduino\hardware\arduino\variants\mega\pins_arduino.h">
       <Filter>_core</Filter>
     </ClInclude>
+    <ClInclude Include="Tone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SignalFilter.cpp">
@@ -154,12 +157,6 @@
     </ClCompile>
     <ClCompile Include="MPU6050_6Axis_MotionApps20.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\HID.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\IPAddress.cpp">
-      <Filter>_core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\main.cpp">
       <Filter>_core</Filter>
@@ -211,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\avr-libc\realloc.c">
       <Filter>_core\avr-libc</Filter>
+    </ClCompile>
+    <ClCompile Include="Tone.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

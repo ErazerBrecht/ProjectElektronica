@@ -61,9 +61,14 @@ bool Sensor::bothCloser(int x)
 
 int Sensor::calculateTurnDirection()
 {
-	if (Ultra[0].getCentimeter() < 20 || Ultra[1].getCentimeter() < 20)
+	//If one of the sides distance is lower than 20 decide to not turn to that direction
+	//Otherwise choose random (this is done to escape a square)
+	long centimeterZero = Ultra[0].getCentimeter();
+	long centimeterOne = Ultra[1].getCentimeter();
+
+	if (centimeterZero < 20 || centimeterOne < 20)
 	{
-		if (Ultra[0].getCentimeter() > Ultra[1].getCentimeter())
+		if (centimeterZero > centimeterOne)
 		{
 			return 0;
 		}

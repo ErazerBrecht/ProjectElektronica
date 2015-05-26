@@ -80,14 +80,17 @@ void Drive()
 			Serial.println(uSide.bothCloser(MinDistance));
 			*/
 
-			int analog = analogRead(A0);
+			int IRRight = analogRead(A0);
+			int IRLeft = analogRead(A1);
 
 			if (!uForward.isCloser(MinDistance))
 			{
 				if (found)
 				{
-					if (analog < 100)
+					if (IRRight < 100 || IRLeft < 100)
 						Wagen.Forward(200);
+					else if (IRRight < IRLeft)
+						Wagen.Right(-100, 100);
 					else
 						Wagen.Left(100, -100);
 				}
@@ -110,7 +113,7 @@ void Drive()
 
 			else if (found)
 			{
-				if (analog < 100)
+				if (IRLeft < 100 || IRRight < 100)
 				{
 					Wagen.Stop();
 					t.playMario();
