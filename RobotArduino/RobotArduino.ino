@@ -17,8 +17,8 @@ bool found;
 bool NoScope = true;
 
 #define Speed 100
-#define TurnAngle 85
-#define MinDistance 7
+#define TurnAngle 87
+#define MinDistance 8
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -115,7 +115,7 @@ void Drive()
 				}
 			}
 
-			else if (found && uForward.bothCloser(5))
+			else if (found && uForward.bothCloser(7))
 			{
 				if (IRLeft < 100 || IRRight < 100)
 				{
