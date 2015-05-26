@@ -18,7 +18,7 @@ bool NoScope = true;
 
 #define Speed 100
 #define TurnAngle 87
-#define MinDistance 8
+#define MinDistance 7
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -101,13 +101,13 @@ void Drive()
 				else
 				{
 					Wagen.Forward(Speed);
-					if (uSide.isCloser(0, 9))			//[0] is right sensor!
+					if (uSide.isCloser(0, 8))			//[0] is right sensor!
 					{
 						variableturn = true;
 						direction = VariableLeft;
 
 					}
-					else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
+					else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
 					{
 						variableturn = true;
 						direction = VariableRight;
@@ -115,7 +115,7 @@ void Drive()
 				}
 			}
 
-			else if (found && uForward.bothCloser(7))
+			else if (found)
 			{
 				if (IRLeft < 100 || IRRight < 100)
 				{
@@ -137,18 +137,21 @@ void Drive()
 
 			else{
 				//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+				Serial.println("Draaien!!");
 				//Serial.print("Random: ");
 				//Serial.println(uSide.calculateTurnDirection());
 				if (uSide.calculateTurnDirection() == 0)
 				{
-					angle = TurnAngle - rotate.Degrees;
+					///angle = TurnAngle - rotate.Degrees;
+					angle = TurnAngle;
 					//Enable turn bool. This will activate to correct turn part of program.
 					turn = true;
 					direction = Right;
 					//Serial.println("RIGHT");
 				}
 				else{
-					angle = TurnAngle + rotate.Degrees;
+					angle = TurnAngle;
+					//angle = TurnAngle + rotate.Degrees;
 					//Enable turn bool. This will activate the correct turn part of program.
 					turn = true;
 					direction = Left;
