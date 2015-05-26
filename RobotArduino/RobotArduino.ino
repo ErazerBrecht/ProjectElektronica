@@ -3,9 +3,9 @@
 #include "Tone.h"
 
 // Sensor classes. Class for measuring distance to wall!
-Sensor uForward(9, 10, 52, 53);
+Sensor uForward(5, 3);
 //Sensor uReverse(22, 24);
-Sensor uSide(26, 28, 30, 32);
+Sensor uSide(9, 8);
 //Sensor uLeft(30, 32);
 
 // Robot class. Class for driving the motors!
@@ -17,7 +17,7 @@ bool found;
 bool NoScope = true;
 
 #define Speed 100
-#define TurnAngle 83
+#define TurnAngle 85
 #define MinDistance 7
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
@@ -64,9 +64,9 @@ void loop() {
 //Drive part!
 void Drive()
 {
-	Serial.println(rotate.Degrees);
+	//Serial.println(rotate.Degrees);
 	variableturn = false;
-		
+	
 	if (NoScope && found == false)
 	{
 		Search();
@@ -101,7 +101,7 @@ void Drive()
 				else
 				{
 					Wagen.Forward(Speed);
-					if (uSide.isCloser(0, 9))			//[0] is left sensor!
+					if (uSide.isCloser(0, 9))			//[0] is right sensor!
 					{
 						variableturn = true;
 						direction = VariableLeft;

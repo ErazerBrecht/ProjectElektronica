@@ -1,15 +1,15 @@
 #include "Sensor.h"
 
-Sensor::Sensor(int trigPin, int echoPin)
+Sensor::Sensor(int pin)
 {
-     Ultra[0].begin(trigPin, echoPin);
+     Ultra[0].begin(pin);
 	 _double = false;
 }
 
-Sensor::Sensor(int trigPin, int echoPin, int trigPin2, int echoPin2)
+Sensor::Sensor(int pin, int pin2)
 {
-	Ultra[0].begin(trigPin, echoPin);
-	Ultra[1].begin(trigPin2, echoPin2);
+	Ultra[0].begin(pin);
+	Ultra[1].begin(pin2);
 	_double = true;
 }
 
