@@ -64,6 +64,7 @@ void loop() {
 //Drive part!
 void Drive()
 {
+	Serial.println(rotate.Degrees);
 	variableturn = false;
 		
 	if (NoScope && found == false)
@@ -80,8 +81,11 @@ void Drive()
 			Serial.println(uSide.bothCloser(MinDistance));
 			*/
 
-			int IRRight = analogRead(A0);
+			int IRRight = analogRead(A2);
 			int IRLeft = analogRead(A1);
+
+			if (IRRight < 100 || IRLeft < 100)
+				found = true;
 
 			if (!uForward.isCloser(MinDistance))
 			{
@@ -111,7 +115,7 @@ void Drive()
 				}
 			}
 
-			else if (found)
+			else if (found && uForward.bothCloser(5))
 			{
 				if (IRLeft < 100 || IRRight < 100)
 				{
@@ -141,14 +145,14 @@ void Drive()
 					//Enable turn bool. This will activate to correct turn part of program.
 					turn = true;
 					direction = Right;
-					Serial.println("RIGHT");
+					//Serial.println("RIGHT");
 				}
 				else{
 					angle = TurnAngle + rotate.Degrees;
 					//Enable turn bool. This will activate the correct turn part of program.
 					turn = true;
 					direction = Left;
-					Serial.println("LEFT");
+					//Serial.println("LEFT");
 				}
 
 			}
@@ -193,9 +197,9 @@ void Turn()
 		}
 
 		
-		Serial.print("Meting: ");
+		/*Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
-		/*Serial.print("Gewenst: ");
+		Serial.print("Gewenst: ");
 		Serial.println(angle);
 		*/
 
@@ -211,24 +215,25 @@ void Turn()
 
 void Search()
 {
-	Serial.println("LOL");
+	//Serial.println("LOL");
 
 	if ((int)floor(rotate.Degrees) != -2)
 	{
-		Serial.println(rotate.Degrees);
-		int analog = analogRead(A0);
-		if (analog < 100)
+		//Serial.println(rotate.Degrees);
+		int IRRight = analogRead(A2);
+		int IRLeft = analogRead(A1);
+		if (IRRight < 100 || IRLeft < 100)
 		{
 			found = true;
 		}
-		else if (analog > 110){
+		else{
 			Wagen.Left(-100, 100);
 		}
 	}
 	else
 	{
 		NoScope = false;
-		Serial.println((int)floor(rotate.Degrees));
-		Serial.println("KLEIR");
+		//Serial.println((int)floor(rotate.Degrees));
+		//Serial.println("KLEIR");
 	}
 }
