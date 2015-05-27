@@ -20,9 +20,9 @@ class Ultrasoon
 
   private:
     int _pin;
-    SignalFilter Filter;
+    //SignalFilter Filter;
 	int _value;
-	int _filtered;
+	//int _filtered;
 	
 };
 

@@ -107,7 +107,6 @@ void Drive()
 						{
 							variableturn = true;
 							direction = VariableLeft;
-
 						}
 						else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
 						{
@@ -178,9 +177,7 @@ void Drive()
 	}
 
 	if (turn || variableturn)
-	{
 		Turn();
-	}
 }
 
 void Turn()

@@ -14,7 +14,7 @@ void Ultrasoon::begin(int pin)
 
 	//TODO: Make Filter init function!
 	//Filter.begin();			//Start the filter library
-	//Filter.setFilter('m');  //Set it's mode on "median" 
+	//Filter.setFilter('m');	//Set it's mode on "median" 
 	//Filter.setOrder(3);		//Set the number of sample the filter uses to calculate the median!
 }
 
@@ -29,15 +29,11 @@ int Ultrasoon::getCentimeter()
 
 	//Check if sensor value is out of range!
 	if (_filteredDistance < 4)
-	{
 		_filteredDistance = 3;
-	}
 
 	//Check if sensor value is out of range!
 	else if (_filteredDistance > 30)
-	{
 		_filteredDistance = 31;
-	}
 
 	//Return the distance value
 	return _filteredDistance;
