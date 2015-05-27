@@ -3,7 +3,7 @@
 #include "Tone.h"
 
 // Sensor classes. Class for measuring distance to wall!
-Sensor uForward(5, 3);
+Sensor uForward(3);
 //Sensor uReverse(22, 24);
 Sensor uSide(9, 8);
 //Sensor uLeft(30, 32);
