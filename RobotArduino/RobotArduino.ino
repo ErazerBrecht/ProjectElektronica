@@ -72,12 +72,12 @@ void Drive()
 			//If there is more space than 20 cm there is a hole. No need to compensate!
 			if (uSide.isCloser(0, 25))
 			{
-				if (uSide.isCloser(0, 9))			//[0] is right sensor!
+				if (uSide.isCloser(0, 8))			//[0] is right sensor!
 				{
 					variableturn = true;
 					direction = VariableLeft;
 				}
-				else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
+				else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
 				{
 					variableturn = true;
 					direction = VariableRight;
