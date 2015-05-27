@@ -18,7 +18,7 @@ bool NoScope = true;
 
 #define Speed 100
 #define TurnAngle 87
-#define MinDistance 7
+#define MinDistance 5
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
 // 30/03/2015 by Brecht Carlier & Arne Schoonvliet
@@ -68,9 +68,7 @@ void Drive()
 	variableturn = false;
 	
 	if (NoScope && found == false)
-	{
 		Search();
-	}
 	else{
 		if (!turn)
 		{
@@ -92,7 +90,7 @@ void Drive()
 				if (found)
 				{
 					if (IRRight < 100 || IRLeft < 100)
-						Wagen.Forward(200);
+						Wagen.Forward(255);
 					else if (IRRight < IRLeft)
 						Wagen.Turn(-100, 100);
 					else
@@ -116,8 +114,6 @@ void Drive()
 					}
 					else
 						Wagen.Forward(Speed);
-					
-
 				}
 			}
 
