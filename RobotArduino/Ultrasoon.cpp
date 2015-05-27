@@ -21,7 +21,7 @@ void Ultrasoon::begin(int pin)
 //Private!
 //The main function of this library
 //This function will do the measuring!
-float Ultrasoon::getCentimeter()
+int Ultrasoon::getCentimeter()
 {
 	_value = analogRead(_pin);							//Read the voltage from the sensor with the ADC from the microcontroller!
 	//_filtered = Filter.run(_value);					//Filter against fault readings!
@@ -30,13 +30,13 @@ float Ultrasoon::getCentimeter()
 	//Check if sensor value is out of range!
 	if (_filteredDistance < 4)
 	{
-		_filteredDistance = 3.0;
+		_filteredDistance = 3;
 	}
 
 	//Check if sensor value is out of range!
 	else if (_filteredDistance > 30)
 	{
-		_filteredDistance = 31.0;
+		_filteredDistance = 31;
 	}
 
 	//Return the distance value

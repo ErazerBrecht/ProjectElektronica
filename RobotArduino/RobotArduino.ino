@@ -186,25 +186,15 @@ void Drive()
 void Turn()
 {
 	if (direction == VariableLeft)
-	{
 		Wagen.Turn(Speed, Speed - 40);
-	}
 	else if (direction == VariableRight)
-	{
 		Wagen.Turn(Speed - 30, Speed);
-	}
 	else
 	{
 		if (direction == Left)
-		{
 			Wagen.Turn(100, -100);
-		}
-
 		else
-		{
 			Wagen.Turn(-100, 100);
-		}
-
 		
 		/*Serial.print("Meting: ");
 		Serial.println(abs(rotate.Degrees));
@@ -215,7 +205,7 @@ void Turn()
 		if (abs(rotate.Degrees) >= angle)
 		{
 			turn = false;
-			Wagen.Stop();
+			Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
 			rotate.Reset();
 			NoScope = true;
 		}
@@ -224,25 +214,16 @@ void Turn()
 
 void Search()
 {
-	//Serial.println("LOL");
-
 	if ((int)floor(rotate.Degrees) != -2)
 	{
 		//Serial.println(rotate.Degrees);
 		int IRRight = analogRead(A2);
 		int IRLeft = analogRead(A1);
 		if (IRRight < 100 || IRLeft < 100)
-		{
 			found = true;
-		}
-		else{
+		else
 			Wagen.Turn(-100, 100);
-		}
 	}
 	else
-	{
 		NoScope = false;
-		//Serial.println((int)floor(rotate.Degrees));
-		//Serial.println("KLEIR");
-	}
 }

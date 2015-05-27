@@ -15,14 +15,14 @@ class Ultrasoon
   public:
     void begin(int pin); 
 	bool isCloser(int x);
-	float getCentimeter();
-	float _filteredDistance;
+	int getCentimeter();
+	int _filteredDistance;
 
   private:
     int _pin;
     SignalFilter Filter;
-	long _value;
-	float _filtered;
+	int _value;
+	int _filtered;
 	
 };
 
