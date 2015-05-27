@@ -13,16 +13,16 @@
 class Ultrasoon
 {
   public:
-    void begin(int trigPin, int echoPin); 
+    void begin(int pin); 
 	bool isCloser(int x);
-	long getCentimeter();
-	long _filteredDistance;
+	int getCentimeter();
+	int _filteredDistance;
 
   private:
-    int _trigPin;
-	int _echoPin;
-    SignalFilter Filter;
-	long _duration;
+    int _pin;
+    //SignalFilter Filter;
+	int _value;
+	//int _filtered;
 	
 };
 

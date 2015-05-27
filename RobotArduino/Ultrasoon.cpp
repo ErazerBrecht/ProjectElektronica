@@ -8,55 +8,34 @@ Created by Brecht Carlier & Arne Schoonvliet
 #include "Ultrasoon.h"
 
 //Constructor
-void Ultrasoon::begin(int trigPin, int echoPin)
+void Ultrasoon::begin(int pin)
 {
-	_trigPin = trigPin;		//Save the constuctor parameter (pin) to a private field (is used later for measuring)
-	_echoPin = echoPin;
+	_pin = pin;		//Save the constuctor parameter (pin) to a private field (is used later for measuring)
 
 	//TODO: Make Filter init function!
 	//Filter.begin();			//Start the filter library
-	//Filter.setFilter('m');  //Set it's mode on "median" 
+	//Filter.setFilter('m');	//Set it's mode on "median" 
 	//Filter.setOrder(3);		//Set the number of sample the filter uses to calculate the median!
-
-	pinMode(_trigPin, OUTPUT);
-	pinMode(_echoPin, INPUT);
 }
 
 //Private!
 //The main function of this library
 //This function will do the measuring!
-long Ultrasoon::getCentimeter()
+int Ultrasoon::getCentimeter()
 {
-	// The sensor is triggered by a HIGH pulse of 10 or more microseconds.
-	// Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-	digitalWrite(_trigPin, LOW);
-	delayMicroseconds(2);
-
-	digitalWrite(_trigPin, HIGH);
-	delayMicroseconds(10);
-
-	digitalWrite(_trigPin, LOW);
-	_duration = pulseIn(_echoPin, HIGH);
-
-	//Calculate the distance (in cm) and filter against fault readings!
-	//_filteredDistance = Filter.run(_duration / 58.2);
-	_filteredDistance = _duration / 58.2;
+	_value = analogRead(_pin);							//Read the voltage from the sensor with the ADC from the microcontroller!
+	//_filtered = Filter.run(_value);					//Filter against fault readings!
+	_filteredDistance = 3616.7 * pow(_value, -1.07);	//Equation to calculate centimeters
 
 	//Check if sensor value is out of range!
-	if (_filteredDistance < 2)
-	{
-		_filteredDistance = 1;
-	}
+	if (_filteredDistance < 4)
+		_filteredDistance = 3;
 
 	//Check if sensor value is out of range!
-	else if (_filteredDistance > 400)
-	{
-		_filteredDistance = 401;
-	}
+	else if (_filteredDistance > 30)
+		_filteredDistance = 31;
 
-	//Is really needed for dual sensors!
-	delay(3);
-
+	//Return the distance value
 	return _filteredDistance;
 }
 
@@ -66,6 +45,8 @@ long Ultrasoon::getCentimeter()
 bool Ultrasoon::isCloser(int x)
 {
 	getCentimeter();
+	//Serial.print("Afstand: ");
+	//Serial.println(_filteredDistance);
 	if (_filteredDistance < x)
 	{
 		return true;

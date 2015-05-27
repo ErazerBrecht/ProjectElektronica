@@ -13,8 +13,8 @@ Created by Brecht Carlier & Arne Schoonvliet
 class Sensor
 {
 public:
-	Sensor(int trigPin, int pinEcho);
-	Sensor(int trigPin, int pinEcho, int trigPin2, int pinEcho2);
+	Sensor(int pin);
+	Sensor(int pin, int pin2);
 	bool isCloser(int x);
 	bool isCloser(int sensornumer, int x);
 	bool bothCloser(int x);
@@ -23,10 +23,8 @@ public:
 	Ultrasoon Ultra[2];
 	
 private:
-	int _trigPin;
-	int _echoPin;
-	int _trigPin2;
-	int _echoPin2;
+	int _pin;
+	int _pin2;
 	bool _double;
 
 };
