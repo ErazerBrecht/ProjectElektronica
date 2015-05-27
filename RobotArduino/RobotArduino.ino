@@ -16,8 +16,8 @@ Tone t;
 bool found;
 bool NoScope = true;
 
-#define Speed 100
-#define TurnAngle 87
+#define Speed 200
+#define TurnAngle 85
 #define MinDistance 5
 
 // Wrapper class for MPU 6050 around Jeff Rowberg library
@@ -99,14 +99,14 @@ void Drive()
 				else
 				{
 					//If there is more space than 20 cm there is a hole. No need to compensate!
-					if (uSide.isCloser(0, 20))
+					if (uSide.isCloser(0, 25))
 					{
-						if (uSide.isCloser(0, 8))			//[0] is right sensor!
+						if (uSide.isCloser(0, 9))			//[0] is right sensor!
 						{
 							variableturn = true;
 							direction = VariableLeft;
 						}
-						else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
+						else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
 						{
 							variableturn = true;
 							direction = VariableRight;
@@ -179,9 +179,9 @@ void Drive()
 void Turn()
 {
 	if (direction == VariableLeft)
-		Wagen.Turn(Speed, Speed - 40);
+		Wagen.Turn(Speed, Speed - 45);
 	else if (direction == VariableRight)
-		Wagen.Turn(Speed - 30, Speed);
+		Wagen.Turn(Speed - 35, Speed);
 	else
 	{
 		if (direction == Left)

@@ -126,7 +126,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\avr-libc\malloc.c" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\avr-libc\realloc.c" />
-    <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\new.cpp" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\Print.cpp" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\Stream.cpp" />
     <ClCompile Include="..\..\..\..\..\Arduino\hardware\arduino\cores\arduino\Tone.cpp" />
