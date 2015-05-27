@@ -100,18 +100,25 @@ void Drive()
 				}
 				else
 				{
-					Wagen.Forward(Speed);
-					if (uSide.isCloser(0, 8))			//[0] is right sensor!
+					//If there is more space than 20 cm there is a hole. No need to compensate!
+					if (!uSide.isCloser(0, 20))
 					{
-						variableturn = true;
-						direction = VariableLeft;
+						if (uSide.isCloser(0, 8))			//[0] is right sensor!
+						{
+							variableturn = true;
+							direction = VariableLeft;
 
+						}
+						else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
+						{
+							variableturn = true;
+							direction = VariableRight;
+						}
 					}
-					else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
-					{
-						variableturn = true;
-						direction = VariableRight;
-					}
+					else
+						Wagen.Forward(Speed);
+					
+
 				}
 			}
 
@@ -131,13 +138,13 @@ void Drive()
 
 			else if (uSide.bothCloser(MinDistance))
 			{
-				Serial.println("STOP");
+				//Serial.println("STOP");
 				Wagen.Stop();
 			}
 
 			else{
 				//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
-				Serial.println("Draaien!!");
+				//Serial.println("Draaien!!");
 				//Serial.print("Random: ");
 				//Serial.println(uSide.calculateTurnDirection());
 				if (uSide.calculateTurnDirection() == 0)
@@ -157,7 +164,6 @@ void Drive()
 					direction = Left;
 					//Serial.println("LEFT");
 				}
-
 			}
 
 			/*else if (!uReverse.isCloser(MinDistance))
