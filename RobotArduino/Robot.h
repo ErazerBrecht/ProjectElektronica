@@ -15,8 +15,7 @@ class Robot
     Robot(int pinForwardLeft, int pinReverseLeft, int pinPWMLeft, int pinForwardRight, int pinReverseRight, int pinPWMRight);
     void Forward(int Speed);
     void Reverse(int Speed);
-    void Left(int SpeedRight, int SpeedLeft);
-    void Right(int SpeedRight, int SpeedLeft);
+    void Turn(int SpeedRight, int SpeedLeft);
     void Stop();
 
 	//int Speed;
@@ -29,10 +28,6 @@ class Robot
     int _pinForwardRight;
     int _pinReverseRight;
 	int _pinPWMRight;
-
-	/*int _speedLeft;
-	int _speedRight;*/
-
     
     void MotorForward(int pinForward, int pinReverse, int pinPWM, int Speed);
     void MotorReverse(int pinForward, int pinReverse, int pinPWM, int Speed);

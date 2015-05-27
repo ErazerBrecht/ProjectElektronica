@@ -94,14 +94,14 @@ void Drive()
 					if (IRRight < 100 || IRLeft < 100)
 						Wagen.Forward(200);
 					else if (IRRight < IRLeft)
-						Wagen.Right(-100, 100);
+						Wagen.Turn(-100, 100);
 					else
-						Wagen.Left(100, -100);
+						Wagen.Turn(100, -100);
 				}
 				else
 				{
 					//If there is more space than 20 cm there is a hole. No need to compensate!
-					if (!uSide.isCloser(0, 20))
+					if (uSide.isCloser(0, 20))
 					{
 						if (uSide.isCloser(0, 8))			//[0] is right sensor!
 						{
@@ -187,22 +187,22 @@ void Turn()
 {
 	if (direction == VariableLeft)
 	{
-		Wagen.Left(Speed, Speed - 40);
+		Wagen.Turn(Speed, Speed - 40);
 	}
 	else if (direction == VariableRight)
 	{
-		Wagen.Right(Speed - 30, Speed);
+		Wagen.Turn(Speed - 30, Speed);
 	}
 	else
 	{
 		if (direction == Left)
 		{
-			Wagen.Left(100, -100);
+			Wagen.Turn(100, -100);
 		}
 
 		else
 		{
-			Wagen.Right(-100, 100);
+			Wagen.Turn(-100, 100);
 		}
 
 		
@@ -236,7 +236,7 @@ void Search()
 			found = true;
 		}
 		else{
-			Wagen.Left(-100, 100);
+			Wagen.Turn(-100, 100);
 		}
 	}
 	else

@@ -41,7 +41,7 @@ void Robot::Reverse(int Speed)
 }
 
 //We maken gebruik van twee verschillende PWM's zo kunnen we variabele sturen!
-void Robot::Left(int SpeedRight, int SpeedLeft)	
+void Robot::Turn(int SpeedRight, int SpeedLeft)	
 {
 	//Motor Right
 	//Check if motors have to go reverse
@@ -57,19 +57,6 @@ void Robot::Left(int SpeedRight, int SpeedLeft)
 	else
 		MotorReverse(_pinForwardLeft, _pinReverseLeft, _pinPWMLeft, SpeedLeft * -1);		//Motor Left Reverse Convert negative PWM to positive PWM
   
-}
-
-void Robot::Right(int SpeedRight, int SpeedLeft)
-{
-	if (SpeedRight > 0)
-		MotorForward(_pinForwardRight,_pinReverseRight, _pinPWMRight, SpeedRight);			
-	else
-		MotorReverse(_pinForwardRight,_pinReverseRight, _pinPWMRight, SpeedRight * -1);
-  
-	if (SpeedLeft > 0)
-		MotorForward(_pinForwardLeft, _pinReverseLeft, _pinPWMLeft, SpeedLeft);
-	else
-		MotorReverse(_pinForwardLeft, _pinReverseLeft, _pinPWMLeft,  SpeedLeft - SpeedLeft - SpeedLeft );
 }
 
 void Robot::Stop()
