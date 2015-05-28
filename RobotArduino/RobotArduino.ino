@@ -22,15 +22,11 @@ Rotate rotate;
 
 enum Direction {
 	Left,
-	Right,
-	Around,
-	VariableRight,
-	VariableLeft
+	Right
 };
 
 Direction direction;
 bool turn;
-bool  variableturn;
 int angle;
 
 //Interrupt Service Routine
@@ -57,7 +53,7 @@ void loop() {
 void Drive()
 {
 	//Serial.println(rotate.Degrees);
-	variableturn = false;
+
 	if (!turn)
 	{
 		/*
@@ -69,19 +65,17 @@ void Drive()
 
 		if (!uForward.isCloser(MinDistance))
 		{
-			//If there is more space than 25 cm there is a hole. No need to compensate!
-			if (uSide.isCloser(0, 25))
+			//If there is more space than 30 cm there is a hole. No need to compensate!
+			if (uSide.isCloser(0, 30))
 			{
-				if (uSide.isCloser(0, 8))			//[0] is right sensor!
-				{
-					variableturn = true;
-					direction = VariableLeft;
-				}
-				else if (!uSide.isCloser(0, 9))		//[0] is right sensor!
-				{
-					variableturn = true;
-					direction = VariableRight;
-				}
+				if (uSide.isCloser(0, 8))				//[0] is right sensor!
+					Wagen.Turn(Speed, Speed - 45);		//Compensate to left
+				else if (!uSide.isCloser(0, 11))		//[0] is right sensor!
+					Wagen.Turn(Speed - 25, Speed);		//Compensate to right
+				else if (!uSide.isCloser(0, 12))		//[0] is right sensor!
+					Wagen.Turn(Speed - 55, Speed);		//Compensate to right
+				else
+					Wagen.Forward(Speed);
 			}
 			else
 				Wagen.Forward(Speed);
@@ -123,18 +117,12 @@ void Drive()
 		}*/
 	}
 
-	if (turn || variableturn)
+	else
 		Turn();
 }
 
 void Turn()
 {
-	if (direction == VariableLeft)
-		Wagen.Turn(Speed, Speed - 45);
-	else if (direction == VariableRight)
-		Wagen.Turn(Speed - 35, Speed);
-	else
-	{
 		if (direction == Left)
 			Wagen.Turn(100, -100);
 		else
@@ -152,5 +140,5 @@ void Turn()
 			Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
 			rotate.Reset();
 		}
-	}
+	
 }
