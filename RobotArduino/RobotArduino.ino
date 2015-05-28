@@ -69,7 +69,7 @@ void Drive()
 
 		if (!uForward.isCloser(MinDistance))
 		{
-			//If there is more space than 20 cm there is a hole. No need to compensate!
+			//If there is more space than 25 cm there is a hole. No need to compensate!
 			if (uSide.isCloser(0, 25))
 			{
 				if (uSide.isCloser(0, 8))			//[0] is right sensor!
@@ -93,28 +93,24 @@ void Drive()
 			Wagen.Stop();
 		}
 
-		else{
-			//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+		else
+		{
+			//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the right sensor!
 			//Serial.println("Draaien!!");
-			//Serial.print("Random: ");
-			//Serial.println(uSide.calculateTurnDirection());
+
 			if (uSide.calculateTurnDirection() == 0)
 			{
-				///angle = TurnAngle - rotate.Degrees;
-				angle = TurnAngle;
-				//Enable turn bool. This will activate to correct turn part of program.
-				turn = true;
 				direction = Right;
 				//Serial.println("RIGHT");
 			}
-			else{
-				angle = TurnAngle;
-				//angle = TurnAngle + rotate.Degrees;
-				//Enable turn bool. This will activate the correct turn part of program.
-				turn = true;
+			else
+			{
 				direction = Left;
 				//Serial.println("LEFT");
 			}
+
+			angle = TurnAngle;
+			turn = true;			//Enable turn bool. This will activate the correct turn part of program.
 		}
 
 		/*else if (!uReverse.isCloser(MinDistance))
