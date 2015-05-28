@@ -81,10 +81,13 @@ void Drive()
 				Wagen.Forward(Speed);
 		}
 
-		else if (uSide.bothCloser(MinDistance))
+		else if (uSide.bothCloser(10))
 		{
-			//Serial.println("STOP");
-			Wagen.Stop();
+			//Serial.println("Ingesloten");
+			//Wagen.Stop();
+			turn = true;
+			direction = Left;	//Rotate to left (or right doesn't matter) for 180 degrees
+			angle = 179;
 		}
 
 		else
@@ -106,15 +109,6 @@ void Drive()
 			angle = TurnAngle;
 			turn = true;			//Enable turn bool. This will activate the correct turn part of program.
 		}
-
-		/*else if (!uReverse.isCloser(MinDistance))
-		{
-		rotate.Reset();
-		turn = true;
-		direction = Around;
-		angle = 184;
-		Wagen.Reverse(Speed);
-		}*/
 	}
 
 	else
@@ -123,22 +117,23 @@ void Drive()
 
 void Turn()
 {
+	/*Serial.print("Meting: ");
+	Serial.println(abs(rotate.Degrees));
+	Serial.print("Gewenst: ");
+	Serial.println(angle);
+	*/
+	if (abs(rotate.Degrees) >= angle)
+	{
+		turn = false;
+		Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
+		rotate.Reset();
+	}
+
+	else
+	{
 		if (direction == Left)
-			Wagen.Turn(100, -100);
+			Wagen.Turn(135, -135);
 		else
-			Wagen.Turn(-100, 100);
-
-		/*Serial.print("Meting: ");
-		Serial.println(abs(rotate.Degrees));
-		Serial.print("Gewenst: ");
-		Serial.println(angle);
-		*/
-
-		if (abs(rotate.Degrees) >= angle)
-		{
-			turn = false;
-			Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
-			rotate.Reset();
-		}
-	
+			Wagen.Turn(-135, 135);
+	}
 }
