@@ -27,15 +27,11 @@ Rotate rotate;
 
 enum Direction {
 	Left,
-	Right,
-	Around,
-	VariableRight,
-	VariableLeft
+	Right
 };
 
 Direction direction;
 bool turn;
-bool  variableturn;
 int angle;
 
 //Interrupt Service Routine
@@ -65,8 +61,7 @@ void loop() {
 void Drive()
 {
 	//Serial.println(rotate.Degrees);
-	variableturn = false;
-	
+
 	if (NoScope && found == false)
 		Search();
 	else{
@@ -98,19 +93,17 @@ void Drive()
 				}
 				else
 				{
-					//If there is more space than 20 cm there is a hole. No need to compensate!
-					if (uSide.isCloser(0, 25))
+					//If there is more space than 30 cm there is a hole. No need to compensate!
+					if (uSide.isCloser(0, 30))
 					{
-						if (uSide.isCloser(0, 9))			//[0] is right sensor!
-						{
-							variableturn = true;
-							direction = VariableLeft;
-						}
-						else if (!uSide.isCloser(0, 10))		//[0] is right sensor!
-						{
-							variableturn = true;
-							direction = VariableRight;
-						}
+						if (uSide.isCloser(0, 8))				//[0] is right sensor!
+							Wagen.Turn(Speed, Speed - 45);		//Compensate to left
+						else if (!uSide.isCloser(0, 11))		//[0] is right sensor!
+							Wagen.Turn(Speed - 25, Speed);		//Compensate to right
+						else if (!uSide.isCloser(0, 12))		//[0] is right sensor!
+							Wagen.Turn(Speed - 55, Speed);		//Compensate to right
+						else
+							Wagen.Forward(Speed);
 					}
 					else
 						Wagen.Forward(Speed);
@@ -137,28 +130,24 @@ void Drive()
 				Wagen.Stop();
 			}
 
-			else{
-				//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the righ sensor!
+			else
+			{
+				//If the return value is 0 then sensor 0 has te most place to turn. Sensor 0 is the right sensor!
 				//Serial.println("Draaien!!");
-				//Serial.print("Random: ");
-				//Serial.println(uSide.calculateTurnDirection());
+
 				if (uSide.calculateTurnDirection() == 0)
 				{
-					///angle = TurnAngle - rotate.Degrees;
-					angle = TurnAngle;
-					//Enable turn bool. This will activate to correct turn part of program.
-					turn = true;
 					direction = Right;
 					//Serial.println("RIGHT");
 				}
-				else{
-					angle = TurnAngle;
-					//angle = TurnAngle + rotate.Degrees;
-					//Enable turn bool. This will activate the correct turn part of program.
-					turn = true;
+				else
+				{
 					direction = Left;
 					//Serial.println("LEFT");
 				}
+
+				angle = TurnAngle;
+				turn = true;			//Enable turn bool. This will activate the correct turn part of program.
 			}
 
 			/*else if (!uReverse.isCloser(MinDistance))
@@ -172,36 +161,29 @@ void Drive()
 		}
 	}
 
-	if (turn || variableturn)
+	if (turn)
 		Turn();
 }
 
 void Turn()
 {
-	if (direction == VariableLeft)
-		Wagen.Turn(Speed, Speed - 45);
-	else if (direction == VariableRight)
-		Wagen.Turn(Speed - 35, Speed);
+	if (direction == Left)
+		Wagen.Turn(100, -100);
 	else
-	{
-		if (direction == Left)
-			Wagen.Turn(100, -100);
-		else
-			Wagen.Turn(-100, 100);
-		
-		/*Serial.print("Meting: ");
-		Serial.println(abs(rotate.Degrees));
-		Serial.print("Gewenst: ");
-		Serial.println(angle);
-		*/
+		Wagen.Turn(-100, 100);
 
-		if (abs(rotate.Degrees) >= angle)
-		{
-			turn = false;
-			Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
-			rotate.Reset();
-			NoScope = true;
-		}
+	/*Serial.print("Meting: ");
+	Serial.println(abs(rotate.Degrees));
+	Serial.print("Gewenst: ");
+	Serial.println(angle);
+	*/
+
+	if (abs(rotate.Degrees) >= angle)
+	{
+		turn = false;
+		Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
+		rotate.Reset();
+		NoScope = true;
 	}
 }
 
