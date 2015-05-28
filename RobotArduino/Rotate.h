@@ -33,12 +33,12 @@ class Rotate
 	
 	//Variabeles & function for measuring
 	// MPU control/status vars
-	int mpuIntStatus;   // holds actual interrupt status byte from MPU
-	bool dmpReady;  // set true if DMP init was successful
-	byte devStatus;      // return status after each device operation (0 = success, !0 = error)
-	int packetSize;    // expected DMP packet size (default is 42 bytes)
-	int fifoCount;     // count of all bytes currently in FIFO
-	byte fifoBuffer[64]; // FIFO storage buffer
+	int mpuIntStatus;		// holds actual interrupt status byte from MPU
+	bool dmpReady;			// set true if DMP init was successful
+	byte devStatus;			// return status after each device operation (0 = success, !0 = error)
+	int packetSize;			// expected DMP packet size (default is 42 bytes)
+	int fifoCount;			// count of all bytes currently in FIFO
+	byte fifoBuffer[64];	// FIFO storage buffer
 
 	// orientation/motion vars
 	Quaternion q;           // [w, x, y, z]         quaternion container
