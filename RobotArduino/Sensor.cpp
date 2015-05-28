@@ -63,8 +63,8 @@ int Sensor::calculateTurnDirection()
 {
 	//If one of the sides distance is lower than 20 decide to not turn to that direction
 	//Otherwise choose random (this is done to escape a square)
-	long centimeterZero = Ultra[0].getCentimeter();
-	long centimeterOne = Ultra[1].getCentimeter();
+	int centimeterZero = Ultra[0].getCentimeter();
+	int centimeterOne = Ultra[1].getCentimeter();
 
 	if (centimeterZero < 20 || centimeterOne < 20)
 	{
