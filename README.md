@@ -35,3 +35,19 @@ The other one (Level 3) is used to find an object in a maze.
 
 To find this object we use IR phototransistors (BPX 43). This is the scheme we used:
 http://users.skynet.be/fotoopa/fpga/bpw43.png for our recieving part. This is connected to the Arduino on the robot.
+
+Our object exists out of many IR leds!
+
+# Pictures + YouTube
+![Picture of prototype robot](http://i.imgur.com/pkoKtfu.jpg)
+
+Youtube Demo Level 2 with Ultrasoon sensors
+https://www.youtube.com/watch?v=-_ODnUfYeVw
+
+Youtube Demo Level 3 with Ultrasoon sensors
+https://www.youtube.com/watch?v=lPbossyOkp4
+
+Youtube Demo Level 4 with Ultrasoon sensors
+https://www.youtube.com/watch?v=Oedt6ct_l20
+
+
