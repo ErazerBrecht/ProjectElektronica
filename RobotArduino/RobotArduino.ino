@@ -29,6 +29,8 @@ Direction direction;
 bool turn;
 int angle;
 
+int compensate;
+
 //Interrupt Service Routine
 void dmpDataReady() {
 	rotate.mpuInterrupt = true;
@@ -41,6 +43,9 @@ void setup() {
 	Serial.begin(115200);
 	// begin our wrapper library (init mpu)
 	rotate.begin();
+
+	//Determine which side the robot needs to ue for compensating!
+	DetermineCompensationSide();
 }
 
 void loop() {
@@ -66,16 +71,33 @@ void Drive()
 		if (!uForward.isCloser(MinDistance))
 		{
 			//If there is more space than 30 cm there is a hole. No need to compensate!
-			if (uSide.isCloser(0, 30))
+			if (uSide.isCloser(compensate, 30))
 			{
-				if (uSide.isCloser(0, 8))				//[0] is right sensor!
-					Wagen.Turn(Speed, Speed - 45);		//Compensate to left
-				else if (!uSide.isCloser(0, 11))		//[0] is right sensor!
-					Wagen.Turn(Speed - 25, Speed);		//Compensate to right
-				else if (!uSide.isCloser(0, 12))		//[0] is right sensor!
-					Wagen.Turn(Speed - 55, Speed);		//Compensate to right
+				int SpeedLeft;
+				int SpeedRight;
+
+				if (uSide.isCloser(compensate, 8))			//[0] is right sensor!
+				{
+					SpeedRight = Speed;
+					SpeedLeft = Speed - 45;			
+				}
+				else if (!uSide.isCloser(compensate, 12))	//[0] is right sensor!
+				{
+					SpeedRight = Speed - 25;
+					SpeedLeft = Speed;
+				}
+				else if (!uSide.isCloser(compensate, 13))	//[0] is right sensor!
+				{
+					SpeedRight = Speed - 45;
+					SpeedLeft = Speed;			
+				}
 				else
-					Wagen.Forward(Speed);
+					SpeedRight = SpeedLeft = Speed;
+
+				if (compensate == 0)
+					Wagen.Turn(SpeedRight, SpeedLeft);
+				else
+					Wagen.Turn(SpeedLeft, SpeedRight);
 			}
 			else
 				Wagen.Forward(Speed);
@@ -115,6 +137,7 @@ void Drive()
 		Turn();
 }
 
+//This function is used to turn the robot!
 void Turn()
 {
 	/*Serial.print("Meting: ");
@@ -127,6 +150,7 @@ void Turn()
 		turn = false;
 		Wagen.Stop();			//This is needed for better stability for MPU otherwise the robot drives while he's initializing...
 		rotate.Reset();
+		DetermineCompensationSide();
 	}
 
 	else
@@ -136,4 +160,11 @@ void Turn()
 		else
 			Wagen.Turn(-135, 135);
 	}
+}
+
+//This function will determine of the robot has to compensate to the right wall or left wall!
+void DetermineCompensationSide()
+{
+	//compensate = uSide.closestSensor();
+	compensate = 0;
 }

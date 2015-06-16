@@ -8,8 +8,8 @@ Sensor::Sensor(int pin)
 
 Sensor::Sensor(int pin, int pin2)
 {
-	Ultra[0].begin(pin);
-	Ultra[1].begin(pin2);
+	Ultra[0].begin(pin);			//Right sensor
+	Ultra[1].begin(pin2);			//Left sensor
 	_double = true;
 }
 
@@ -61,23 +61,35 @@ bool Sensor::bothCloser(int x)
 
 int Sensor::calculateTurnDirection()
 {
-	//If one of the sides distance is lower than 20 decide to turn based on distance (what side has the most place to turn)
+	//If one of the sides distance is lower than 26 decide to turn based on distance (what side has the most place to turn)
 	//Otherwise choose random (this is done to escape a square)
-
-	int centimeterZero = Ultra[0].getCentimeter();
-	int centimeterOne = Ultra[1].getCentimeter();
-
-	if (centimeterZero < 20 || centimeterOne < 20)
+	if (_double)
 	{
-		if (centimeterZero > centimeterOne)
+		if (Ultra[0].getCentimeter() < 26 || Ultra[1].getCentimeter() < 26)
+		{
+			return !closestSensor();
+		}
+
+		else return random(0, 2);
+	}
+
+	//If the virtual sensor not contains two ultrasoon sensors return error number!
+	return 32767;
+}
+
+int Sensor::closestSensor()
+{
+	if (_double)
+	{
+		if (Ultra[0].getCentimeter() < Ultra[1].getCentimeter())
 		{
 			return 0;
 		}
 
 		return 1;
 	}
-
-	else return random(0, 2);
+	//If the virtual sensor not contains two ultrasoon sensors return error number!
+	return 32767;
 }
 
 

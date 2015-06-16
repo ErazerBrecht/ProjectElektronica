@@ -25,7 +25,7 @@ int Ultrasoon::getCentimeter()
 {
 	_value = analogRead(_pin);							//Read the voltage from the sensor with the ADC from the microcontroller!
 	//_filtered = Filter.run(_value);					//Filter against fault readings!
-	_filteredDistance = 3616.7 * pow(_value, -1.07);	//Equation to calculate centimeters
+	_filteredDistance = 3170 * pow(_value, -1.07);	//Equation to calculate centimeters
 
 	//Check if sensor value is out of range!
 	if (_filteredDistance < 4)

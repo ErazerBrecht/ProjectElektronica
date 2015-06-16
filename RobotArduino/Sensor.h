@@ -19,6 +19,7 @@ public:
 	bool isCloser(int sensornumer, int x);
 	bool bothCloser(int x);
 	int calculateTurnDirection();		//Check wich sensor has the most place... If sensor right has more place turn right!
+	int closestSensor();
 	//TODO: Should become an array!
 	Ultrasoon Ultra[2];
 	
